@@ -1,4 +1,4 @@
-module.exports = (name, image) => {
+module.exports = ({name, image}) => {
     const clientMembers = new Map()
     let chathistory = []
 
