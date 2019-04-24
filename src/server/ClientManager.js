@@ -1,9 +1,11 @@
+/* This is for the lobby. Where we add and remove people */
+
 const userTemplates = require('../config/user')
 
 module.exports = () => {
     //map all of clients connected
     const clients = new Map()
-
+    
     function addClient(client) {
         clients.set(client.id, { client })
     }
