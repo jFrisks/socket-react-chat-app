@@ -100,4 +100,27 @@ module.exports = (client, clientManager, chatroomManager) => {
             .catch(callback)
     }
 
+    function handleGetChatrooms(_, callback) {
+        return callback(null, chatroomManager.serializeChatrooms())
+    }
+
+    function handleGetAvailableUsers(_, callback) {
+        return callback(null, chatroomManager.getAvailableUsers())
+    }
+
+    function handleDisconnect() {
+        clientManager.removeClient(client)
+        chatroomManager.removeClient(client)
+    }
+
+    return {
+        handleDisconnect,
+        handleEvent,
+        handleGetAvailableUsers,
+        handleGetChatrooms,
+        handleJoin,
+        handleLeave,
+        handleMessage,
+        handleRegister,
+    }
 }
