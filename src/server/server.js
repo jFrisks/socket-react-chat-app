@@ -2,7 +2,24 @@ const server = require('http').createServer();
 const io = require('socket.io')(server);
 const port = 3000;
 
+const ClientManager = require('./ClientManager')
+const ChatroomManager = require('./ChatroomManager')
+const makeHandlers = require('./handlers')
+
+const clientManager = ClientManager()
+const chatroomManager = ChatroomManager()
+
 io.on('connection', (client) => {
+    const {
+        handleRegister,
+        handleDisconnect,
+        handleGetAvailableUsers,
+        handleGetChatrooms,
+        handleJoin,
+        handleLeave,
+        handleMessage,
+    } = makeHandlers(client, clientManager, chatroomManager)
+
     client.on('register', handleRegister)
 
     client.on('join', handleJoin)
