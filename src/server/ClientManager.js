@@ -1,6 +1,6 @@
 /* This is for the lobby. Where we add and remove people */
 
-const userTemplates = require('../config/user')
+const userTemplates = require('../config/users')
 
 module.exports = () => {
     //map all of clients connected

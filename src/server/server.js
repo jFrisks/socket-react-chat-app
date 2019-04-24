@@ -1,6 +1,6 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server);
-const port = 3000;
+const port = 8000;
 
 const ClientManager = require('./ClientManager')
 const ChatroomManager = require('./ChatroomManager')
@@ -10,6 +10,8 @@ const clientManager = ClientManager()
 const chatroomManager = ChatroomManager()
 
 io.on('connection', (client) => {
+    console.log('client connected as ', client.id)
+    
     const {
         handleRegister,
         handleDisconnect,
