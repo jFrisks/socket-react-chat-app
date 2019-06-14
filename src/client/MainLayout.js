@@ -82,7 +82,7 @@ function MainLayout(props) {
             <Relative>
               <Sticky>
                 <AvatarWrapper>
-                  <Avatar size={500} src={user.UserImages}/>
+                  <Avatar src={user.UserImages}/>
                   <UserName> { fullName(user) } </UserName>
                 </AvatarWrapper>
               </Sticky>
