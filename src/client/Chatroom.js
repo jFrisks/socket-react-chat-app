@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components'
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
-import { List, ListItem } from '@material-ui/core/List';
+import Avatar from '@material-ui/core/Avatar';
+import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
 
 import Overlay from './Overlay';
-import Button from '@material-ui/core/Button';
 
 const ChatWindow = styled.div`
     position: relative;
@@ -23,6 +25,39 @@ const ChatroomImage = styled.img`
     width: 100%;
 `
 
+const ChatPanel = styled.div`
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1;
+`
+
+const InputPanel = styled.div`
+    display: flex;
+    align-items: center;
+    align-self: center;
+    padding: 20px;
+    border-top: 1px solid #fafafa;
+`
+
+const Scrollable = styled.div`
+    height: 100%;
+    overflow: auto;
+`
+
+const OutputText = styled.div`
+  white-space: normal !important;
+  word-break: break-all !important;
+  overflow: initial !important;
+  width: 100%;
+  height: auto !important;
+  color: #fafafa !important;
+`
+
 const Header = styled.div`
     display: flex;
     align-items: center;
@@ -38,8 +73,36 @@ const Title = styled.p`
     font-size: 24px;
 `
 
+
 export default class Chatroom extends React.Component {
     
+    showAllMessages(messages){
+        return(
+            <List>
+                {messages.map(message => (
+                    <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                            <Avatar alt="Remy Sharp" src={message.img} />
+                        </ListItemAvatar>
+                        <ListItemText 
+                            primary={
+                                <OutputText>
+                                    {message.user}
+                                </OutputText>
+                            }
+                            secondary={
+                                <OutputText>
+                                    {message.message}
+                                </OutputText>
+                            }
+                        />
+                    </ListItem>
+                ))}
+            </List>
+        );
+        
+    }
+
 
     render() {
         return(
@@ -47,13 +110,28 @@ export default class Chatroom extends React.Component {
                 <ChatWindow>
                     <Header>
                         <Title>
-                            Chatroom name
+                            {this.props.chatroom.name}
                         </Title>
                         <Button variant="outlined" color="primary">
                             Close
                         </Button>
                     </Header>
-                    <ChatroomImage src="public/chatrooms/alexandria.jpg"/>
+                    <ChatroomImage src={this.props.chatroom.image}/>
+                    <ChatPanel>
+                        <Scrollable>
+                            {this.showAllMessages(this.props.messages)}
+                        </Scrollable>
+                        <InputPanel>
+                        <TextField
+                            id="message-input"
+                            label="Enter a message"
+                            placeholder="Enter a message"
+                            margin="normal"
+                            onKeyPress={e => (e.key === 'Enter' ? alert("hej") : null)}
+                        />
+                        </InputPanel>
+                    </ChatPanel>
+                    <Overlay opacity={0.6} background="#111111" />
                 </ChatWindow>
             </div>
         );
