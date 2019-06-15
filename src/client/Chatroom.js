@@ -112,7 +112,7 @@ export default class Chatroom extends React.Component {
                         <Title>
                             {this.props.chatroom.name}
                         </Title>
-                        <Button variant="outlined" color="primary">
+                        <Button variant="contained" color="secondary">
                             Close
                         </Button>
                     </Header>
