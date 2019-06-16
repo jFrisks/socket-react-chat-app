@@ -27,51 +27,61 @@ function Root() {
             user: "PERSON 1",
             message: "HEJSAN",
             img: userImage1,
+            key: 1,
         },
         {
             user: "PERSON 2",
             message: "BLÄBLÄ",
             img: userImage2,
+            key: 2,
         },
         {
             user: "PERSON 3",
             message: "BLÄBLÄ",
             img: userImage3,
+            key: 3,
         },
         {
             user: "PERSON 1",
             message: "SKIT PÅ DIG",
             img: userImage1,
+            key: 4,
         },
         {
             user: "PERSON 2",
             message: "HIHIHIH",
             img: userImage2,
+            key: 5,
         },
         {
             user: "PERSON 3",
             message: "SNYGGT SAGT!",
             img: userImage3,
+            key: 6,
         },
         {
             user: "PERSON 3",
             message: "BLÄBLÄ",
             img: userImage3,
+            key: 7,
         },
         {
             user: "PERSON 1",
             message: "SKIT PÅ DIG",
             img: userImage1,
+            key: 8,
         },
         {
             user: "PERSON 2",
             message: "HIHIHIH",
             img: userImage2,
+            key: 9,
         },
         {
             user: "PERSON 3",
             message: "SNYGGT SAGT!",
             img: userImage3,
+            key: 10,
         },
     ]
 

@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import SendIcon from '@material-ui/icons/Send';
 import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
 
 import Overlay from './Overlay';
@@ -75,12 +78,17 @@ const Title = styled.p`
 
 
 export default class Chatroom extends React.Component {
+
+    handleSendClick(message) {
+        console.log("message was sent: ", message)
+        alert("Hejsvejs")
+    }
     
     showAllMessages(messages){
         return(
             <List>
                 {messages.map(message => (
-                    <ListItem alignItems="flex-start">
+                    <ListItem alignItems="flex-start" key={message.key}>
                         <ListItemAvatar>
                             <Avatar alt="Remy Sharp" src={message.img} />
                         </ListItemAvatar>
@@ -112,7 +120,7 @@ export default class Chatroom extends React.Component {
                         <Title>
                             {this.props.chatroom.name}
                         </Title>
-                        <Button variant="contained" color="secondary">
+                        <Button variant="contained" color="secondary" >
                             Close
                         </Button>
                     </Header>
@@ -127,8 +135,12 @@ export default class Chatroom extends React.Component {
                             label="Enter a message"
                             placeholder="Enter a message"
                             margin="normal"
-                            onKeyPress={e => (e.key === 'Enter' ? alert("hej") : null)}
+                            onKeyPress={e => (e.key === 'Enter' ? this.handleSendClick() : null)}
                         />
+                        <Fab component="button" variant="extended" aria-label="Delete" onClick={() => this.handleSendClick("TEST")}>
+                            <SendIcon />
+                            Send
+                        </Fab>
                         </InputPanel>
                     </ChatPanel>
                     <Overlay opacity={0.6} background="#111111" />
