@@ -137,7 +137,7 @@ export default class Chatroom extends React.Component {
                             margin="normal"
                             onKeyPress={e => (e.key === 'Enter' ? this.handleSendClick() : null)}
                         />
-                        <Fab component="button" variant="extended" aria-label="Delete" onClick={() => this.handleSendClick("TEST")}>
+                        <Fab component="button" variant="extended" aria-label="Delete" onClick={() => this.handleSendClick("TEST2")}>
                             <SendIcon />
                             Send
                         </Fab>
