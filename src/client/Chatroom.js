@@ -79,6 +79,18 @@ const Title = styled.p`
 
 export default class Chatroom extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            input: null,
+            chatHistory: []
+        }
+    }
+
+    onInputChange() {
+        //TODO
+    }
+
     handleSendClick(message) {
         console.log("message was sent: ", message)
         alert("Hejsvejs")
@@ -135,6 +147,8 @@ export default class Chatroom extends React.Component {
                             label="Enter a message"
                             placeholder="Enter a message"
                             margin="normal"
+                            onChange={this.onInputChange}
+                            value={this.state.input}
                             onKeyPress={e => (e.key === 'Enter' ? this.handleSendClick() : null)}
                         />
                         <Fab component="button" variant="extended" aria-label="Delete" onClick={() => this.handleSendClick("TEST2")}>
