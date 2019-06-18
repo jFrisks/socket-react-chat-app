@@ -81,20 +81,48 @@ export default class Chatroom extends React.Component {
 
     constructor(props){
         super(props);
+
+        this.panel = React.createRef();
+
+        const { chatHistory } = props;
+
         this.state = {
-            input: null,
-            chatHistory: []
+            input: '',
+            chatHistory,
         }
     }
 
-    onInputChange() {
-        //TODO
+    componentDidMount(){
+        //Handle register - add user, show log in message and so on
+        //this.props.registerHandler()
+        this.scrollToChatBottom();
+    }
+    componentDidUpdate(){
+        //Fetch the new chathistory
+        this.scrollToChatBottom();
+    }
+    componentWillUnmount(){
+        //Handle unregister
+        //this.props.unregisterHandler()
     }
 
-    handleSendClick(message) {
-        console.log("message was sent: ", message)
-        alert("Hejsvejs")
+    onInputChange = (e) => {
+        this.setState({
+            input: e.target.value,
+        });
     }
+
+    handleSendClick = (e) => {
+        e.preventDefault();
+        let message = this.state.input;
+        console.log("message was sent: ", message)
+        alert(message)
+    }
+
+    scrollToChatBottom() {
+        this.panel.current.scrollTo(0, this.panel.current.scrollHeight)
+    }
+
     
     showAllMessages(messages){
         return(
@@ -138,7 +166,7 @@ export default class Chatroom extends React.Component {
                     </Header>
                     <ChatroomImage src={this.props.chatroom.image}/>
                     <ChatPanel>
-                        <Scrollable>
+                        <Scrollable ref={this.panel}>
                             {this.showAllMessages(this.props.messages)}
                         </Scrollable>
                         <InputPanel>
@@ -151,7 +179,7 @@ export default class Chatroom extends React.Component {
                             value={this.state.input}
                             onKeyPress={e => (e.key === 'Enter' ? this.handleSendClick() : null)}
                         />
-                        <Fab component="button" variant="extended" aria-label="Delete" onClick={() => this.handleSendClick("TEST2")}>
+                        <Fab component="button" variant="extended" aria-label="Delete" onClick={this.handleSendClick}>
                             <SendIcon />
                             Send
                         </Fab>
