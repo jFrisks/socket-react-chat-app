@@ -86,6 +86,12 @@ export default class Chatroom extends React.Component {
 
         const { chatHistory } = props;
 
+        /** props
+        registerHandler
+        unregisterHandler
+        chatHistory
+        */
+
         this.state = {
             input: '',
             chatHistory,
@@ -94,7 +100,7 @@ export default class Chatroom extends React.Component {
 
     componentDidMount(){
         //Handle register - add user, show log in message and so on
-        //this.props.registerHandler()
+        this.props.registerHandler()
         this.scrollToChatBottom();
     }
     componentDidUpdate(){
@@ -103,7 +109,7 @@ export default class Chatroom extends React.Component {
     }
     componentWillUnmount(){
         //Handle unregister
-        //this.props.unregisterHandler()
+        this.props.unregisterHandler()
     }
 
     onInputChange = (e) => {
@@ -117,6 +123,14 @@ export default class Chatroom extends React.Component {
         let message = this.state.input;
         console.log("message was sent: ", message)
         alert(message)
+    }
+
+    onMessageReceived = () => {
+        //TODO
+    }
+
+    updateChatHistory = () => {
+        //TODO
     }
 
     scrollToChatBottom() {
@@ -160,7 +174,7 @@ export default class Chatroom extends React.Component {
                         <Title>
                             {this.props.chatroom.name}
                         </Title>
-                        <Button variant="contained" color="secondary" >
+                        <Button variant="contained" color="secondary" onClick={this.onLeave} >
                             Close
                         </Button>
                     </Header>
