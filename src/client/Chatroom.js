@@ -3,10 +3,8 @@ import styled from 'styled-components'
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import SendIcon from '@material-ui/icons/Send';
 import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
 
@@ -100,7 +98,7 @@ export default class Chatroom extends React.Component {
 
     componentDidMount(){
         //Handle register - add user, show log in message and so on
-        this.props.registerHandler()
+        this.props.registerHandler(this.onMessageReceived)
         this.scrollToChatBottom();
     }
     componentDidUpdate(){
@@ -123,6 +121,12 @@ export default class Chatroom extends React.Component {
         let message = this.state.input;
         console.log("message was sent: ", message)
         alert(message)
+    }
+
+    onSendMessage = () => {
+        if (!this.state.input)
+            return
+        this.props.onSendMessage()
     }
 
     onMessageReceived = () => {
