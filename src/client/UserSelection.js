@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { Dialog, DialogTitle} from 'material-ui';
+import { Dialog, DialogTitle} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -22,7 +22,7 @@ function ChooseAvatarDialog(props) {
     }
 
     return (
-        <Dialog onClose={handleClose} >
+        <Dialog onClose={handleClose} {...other}>
             <DialogTitle>Choose User</DialogTitle>
             <List>
                 {users.map((user) => (
