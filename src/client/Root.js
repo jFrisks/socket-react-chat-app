@@ -102,6 +102,7 @@ class Root extends React.Component {
                         messages={messages}
                         registerHandler={this.state.client.registerHandler}
                         unregisterHandler={this.state.client.unregisterHandler}
+                    
                     >
                     </Chatroom>
                     <ChatroomPreview></ChatroomPreview>

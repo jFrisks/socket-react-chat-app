@@ -5,6 +5,8 @@ import Overlay from './Overlay';
 import Avatar from '@material-ui/core/Avatar';
 //import chooseAvatarDialog from './UserSelection';
 
+import UserSelection from './UserSelection';
+
 import BGImage from '../public/background.jpg'
 import UserImages from '../public/users/daryl.jpg'
 
@@ -74,6 +76,19 @@ const user = {
 }
 
 function MainLayout(props) {
+  const [open, setOpen] = React.useState(false);
+  const [selectedUser, setSelectedUser] = React.useState(user);
+
+  function handleClickOpen(){
+    setOpen(true);
+    console.log('handledClick')
+  }
+
+  const handleClose = user => {
+    setOpen(false);
+    setSelectedUser(user);
+  }
+
   return (
     <Fullscreen>
       <ContentWrapper>
@@ -81,7 +96,7 @@ function MainLayout(props) {
           <Content>
             <Relative>
               <Sticky>
-                <AvatarWrapper>
+                <AvatarWrapper onClick={handleClickOpen} >
                   <Avatar src={user.UserImages}/>
                   <UserName> { fullName(user) } </UserName>
                 </AvatarWrapper>
@@ -96,6 +111,7 @@ function MainLayout(props) {
         <Overlay opacity="0.5" background="#EDAF05">
         </Overlay>
       </Fullscreen>
+      <UserSelection onClose={handleClose} open={open} selectedUser={selectedUser} ></UserSelection>
     </Fullscreen>
   );
 }
