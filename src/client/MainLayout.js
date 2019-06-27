@@ -69,15 +69,10 @@ function fullName(user) {
   return user ? `${user.name} ${user.lastName}` : 'Who are you?'
 }
 
-const user = {
-  name: "Jonathan",
-  lastName: "Frisk",
-  UserImages,
-}
 
 function MainLayout(props) {
   const [open, setOpen] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState(user);
+  const [selectedUser, setSelectedUser] = React.useState();
 
   function handleClickOpen(){
     setOpen(true);
@@ -97,8 +92,8 @@ function MainLayout(props) {
             <Relative>
               <Sticky>
                 <AvatarWrapper onClick={handleClickOpen} >
-                  <Avatar src={user.UserImages}/>
-                  <UserName> { fullName(user) } </UserName>
+                  <Avatar src={UserImages}/>
+                  <UserName> { fullName(selectedUser) } </UserName>
                 </AvatarWrapper>
               </Sticky>
             </Relative>
