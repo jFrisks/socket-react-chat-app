@@ -7,14 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import AddIcon from '@material-ui/icons/Add';
 
-const users = [
-    {name: 'Carol'},
-    {name: 'Daryl'},
-    {name: 'Negan'},
-    {name: 'Rick'}
-]
+import userImage from '../public/users/carol.jpg';
+import users from '../config/users';
 
 function ChooseAvatarDialog(props) {
     const {onClose, selectedUser, ...other} = props;
@@ -32,13 +27,11 @@ function ChooseAvatarDialog(props) {
             <DialogTitle>Choose User</DialogTitle>
             <List>
                 {users.map((user) => (
-                    <ListItem onClick={() => handleListUserClick(user)} key={user}>
+                    <ListItem button onClick={() => handleListUserClick(user)} key={user}>
                         <ListItemAvatar>
-                            <Avatar>
-                                <AddIcon/>
-                            </Avatar>
+                            <Avatar src={userImage}/>
                         </ListItemAvatar>
-                        <ListItemText primary={user.name}/>
+                        <ListItemText primary={user.name + ' ' + user.lastName}/>
                     </ListItem>
                 ))}
             </List>
