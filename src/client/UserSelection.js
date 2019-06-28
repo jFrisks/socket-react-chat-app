@@ -14,6 +14,11 @@ import users from '../config/users';
 function ChooseAvatarDialog(props) {
     const {onClose, selectedUser, ...other} = props;
 
+    const isUserSelected = (user) => {
+        if(user === selectedUser) return true;
+        else return false
+    }
+
     function handleClose() {
         onClose(selectedUser)
     }
@@ -27,7 +32,7 @@ function ChooseAvatarDialog(props) {
             <DialogTitle>Choose User</DialogTitle>
             <List>
                 {users.map((user) => (
-                    <ListItem button onClick={() => handleListUserClick(user)} key={user}>
+                    <ListItem button selected={isUserSelected(user)} onClick={() => handleListUserClick(user)} key={user}>
                         <ListItemAvatar>
                             <Avatar src={userImage}/>
                         </ListItemAvatar>
