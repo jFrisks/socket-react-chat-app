@@ -5,9 +5,11 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import MainLayout from './MainLayout';
 import ChatroomPreview from './ChatroomPreview';
 import Chatroom from './Chatroom';
+import Home from './Home';
 import Loader from './Loader';
 import Socket from './socket';
 
+import users from '../config/users'
 import chatroomImage from '../public/chatrooms/alexandria.jpg';
 import userImage1 from '../public/users/carol.jpg';
 import userImage2 from '../public/users/daryl.jpg';
@@ -15,10 +17,22 @@ import userImage3 from '../public/users/negan.jpeg';
 import userImage4 from '../public/users/rick.jpg';
 import socket from './socket';
 
-const chatroom = {
-    image: chatroomImage,
-    name: "ALEXANDRIA"
-}
+const chatrooms = [
+    {
+        name: "ALEXANDRIA",
+        image: chatroomImage,
+    },
+    {
+        name: "ÅLAND",
+        image: chatroomImage,
+    },
+    {
+        name: "SVERIGE",
+        image: chatroomImage,
+    }
+]
+
+const chatroom = chatrooms[0];
 
 const messages = [
     {
@@ -90,22 +104,32 @@ class Root extends React.Component {
 
         this.state = {
             client: socket(),
+            user: null,
+            chatrooms: null,
         }
     }
     
     render() {
+
+        const user = {
+            name: "Hej",
+            lastName: 'Wihoo'
+        }
+
         return (
             <MuiThemeProvider>
-                <MainLayout>
+                <MainLayout selectedUser={user}>
+                    <ChatroomPreview></ChatroomPreview>
+                    <Home 
+                        user={user}
+                        chatrooms={chatrooms}
+                    />
                     <Chatroom
                         chatroom={chatroom}
                         messages={messages}
                         registerHandler={this.state.client.registerHandler}
                         unregisterHandler={this.state.client.unregisterHandler}
-                    
-                    >
-                    </Chatroom>
-                    <ChatroomPreview></ChatroomPreview>
+                    />
                 </MainLayout>
             </MuiThemeProvider>
         )

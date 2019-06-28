@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import DialogActions from '@material-ui/core/DialogActions';
 
 import userImage from '../public/users/carol.jpg';
 import users from '../config/users';
@@ -40,6 +40,9 @@ function ChooseAvatarDialog(props) {
                     </ListItem>
                 ))}
             </List>
+            <DialogActions onClick={handleClose}>
+                <Button>Close</Button>
+            </DialogActions>
         </Dialog>
     );
 }

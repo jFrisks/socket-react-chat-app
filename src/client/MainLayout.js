@@ -72,7 +72,7 @@ function fullName(user) {
 
 function MainLayout(props) {
   const [open, setOpen] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState();
+  const [selectedUser, setSelectedUser] = React.useState(props.selectedUser);
 
   function handleClickOpen(){
     setOpen(true);

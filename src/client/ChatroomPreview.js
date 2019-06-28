@@ -11,12 +11,13 @@ import chatrooms3 from '../public/chatrooms/sanctuary.jpg';
 import chatrooms4 from '../public/chatrooms/terminus.jpg';
 
 const ChatroomWrapper = styled.section`
+    position: relative;
     background-color: #123EDF;
     width: 70%;
     min-width: 250px;
 `
 
-let cards = [
+let chatrooms = [
     {title: 'Room 1', text: 'Lizards do that and that', img: chatrooms1},
     {title: 'Room 2', text: 'Dont do it', img: chatrooms2},
     {title: 'Room 3', text: 'Lizards do that and that', img: chatrooms3},
@@ -24,19 +25,19 @@ let cards = [
 ]
 
 function ChatroomPreview(props) {
-    const fullCards = cards.map((cards, key) =>
+    const fullCards = chatrooms.map((chatroom, key) =>
         <Card>
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    image={cards.img}
-                />
+                    image={chatroom.img}
+                    />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {cards.title}
+                        {chatroom.title}
                     </Typography>
                     <Typography component="p">
-                        {cards.text}
+                        {chatroom.text}
                     </Typography>
                 </CardContent>
             </CardActionArea>
