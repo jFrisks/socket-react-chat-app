@@ -11,6 +11,9 @@ import Socket from './socket';
 
 import users from '../config/users'
 import chatroomImage from '../public/chatrooms/alexandria.jpg';
+import chatroomImage2 from '../public/chatrooms/hilltop.jpg';
+import chatroomImage3 from '../public/chatrooms/sanctuary.jpg';
+import chatroomImage4 from '../public/chatrooms/terminus.jpg';
 import userImage1 from '../public/users/carol.jpg';
 import userImage2 from '../public/users/daryl.jpg';
 import userImage3 from '../public/users/negan.jpeg';
@@ -24,15 +27,17 @@ const chatrooms = [
     },
     {
         name: "ÅLAND",
-        image: chatroomImage,
+        image: chatroomImage2,
     },
     {
         name: "SVERIGE",
-        image: chatroomImage,
+        image: chatroomImage3,
+    },
+    {
+        name: "USA",
+        image: chatroomImage4,
     }
 ]
-
-const chatroom = chatrooms[0];
 
 const messages = [
     {
@@ -98,38 +103,57 @@ const messages = [
 ]
 
 class Root extends React.Component {
-
     constructor(props, context){
         super(props);
 
         this.state = {
             client: socket(),
             user: null,
-            chatrooms: null,
+            chatrooms: chatrooms,
+            selectedChatroom: null,
         }
     }
     
+    showChatroom() {
+        return (
+            <Chatroom
+                chatroom={this.state.selectedChatroom}
+                messages={messages}
+                registerHandler={this.state.client.registerHandler}
+                unregisterHandler={this.state.client.unregisterHandler}
+            />
+        )
+    }
+
+    showHome() {
+        return (
+            <Home
+                chatrooms={chatrooms}
+                onEnterChatroom={(chatroom, e) => this.handleChatroomClick(chatroom, e)}
+            />
+        )
+    }
+
+    handleChatroomClick(clickedRoom, e) {
+        this.setState({
+            selectedChatroom : clickedRoom
+        });
+        console.log('Clicked and selected chatroom', clickedRoom)
+    }
+
+    isUserAndChatroomSelected() {
+        const {selectedChatroom, user} = this.state;
+        if(selectedChatroom && user) 
+            return true;
+        else
+            return false;
+    }
+
     render() {
-
-        const user = {
-            name: "Hej",
-            lastName: 'Wihoo'
-        }
-
         return (
             <MuiThemeProvider>
-                <MainLayout selectedUser={user}>
-                    <ChatroomPreview></ChatroomPreview>
-                    <Home 
-                        user={user}
-                        chatrooms={chatrooms}
-                    />
-                    <Chatroom
-                        chatroom={chatroom}
-                        messages={messages}
-                        registerHandler={this.state.client.registerHandler}
-                        unregisterHandler={this.state.client.unregisterHandler}
-                    />
+                <MainLayout>
+                    {this.isUserAndChatroomSelected() ? this.showChatroom() : this.showHome() }
                 </MainLayout>
             </MuiThemeProvider>
         )

@@ -65,6 +65,7 @@ const UserName = styled.p`
   color: #fafafa;
 `
 
+
 function fullName(user) {
   return user ? `${user.name} ${user.lastName}` : 'Who are you?'
 }
@@ -72,7 +73,7 @@ function fullName(user) {
 
 function MainLayout(props) {
   const [open, setOpen] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState(props.selectedUser);
+  const [selectedUser, setSelectedUser] = React.useState(null);
 
   function handleClickOpen(){
     setOpen(true);
