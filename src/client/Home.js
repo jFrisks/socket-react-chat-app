@@ -12,7 +12,7 @@ export default ({
                 <ChatroomPreview 
                     key={chatroom.name}
                     chatroom={chatroom}
-                    onEnter={() => onEnterChatroom}
+                    onEnter={onEnterChatroom}
                 />
             ))
         }
