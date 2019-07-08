@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
@@ -11,6 +12,9 @@ import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
 import Overlay from './Overlay';
 
 const ChatWindow = styled.div`
+    background-image: url(${props => props.bgImage});
+    background-size: cover;
+    background-position: center;
     position: relative;
     display: inline-flex;
     flex-direction: column;
@@ -21,6 +25,7 @@ const ChatWindow = styled.div`
 `
 
 const ChatroomImage = styled.img`
+    object-fit: cover;
     position: absolute;
     top: 0;
     width: 100%;
@@ -94,6 +99,8 @@ export default class Chatroom extends React.Component {
             input: '',
             chatHistory,
         }
+
+        this.onSendMessage = this.onSendMessage.bind(this);
     }
 
     componentDidMount(){
@@ -116,17 +123,16 @@ export default class Chatroom extends React.Component {
         });
     }
 
-    handleSendClick = (e) => {
-        e.preventDefault();
-        let message = this.state.input;
-        console.log("message was sent: ", message)
-        alert(message)
-    }
-
-    onSendMessage = () => {
+    onSendMessage() {
         if (!this.state.input)
             return
-        this.props.onSendMessage()
+        this.props.onSendMessage(this.state.input, (err) => {
+            if (err)
+                return console.error(err);
+            return this.setState({
+                input: ''
+            });
+        })
     }
 
     onMessageReceived = () => {
@@ -173,7 +179,7 @@ export default class Chatroom extends React.Component {
     render() {
         return(
             <div style={{ height: '100%' }}>
-                <ChatWindow>
+                <ChatWindow bgImage={this.props.chatroom.image}>
                     <Header>
                         <Title>
                             {this.props.chatroom.name}
@@ -182,22 +188,22 @@ export default class Chatroom extends React.Component {
                             Close
                         </Button>
                     </Header>
-                    <ChatroomImage src={this.props.chatroom.image}/>
                     <ChatPanel>
                         <Scrollable ref={this.panel}>
                             {this.showAllMessages(this.state.chatHistory)}
                         </Scrollable>
                         <InputPanel>
-                        <TextField
+                        <Input
                             id="message-input"
-                            label="Enter a message"
-                            placeholder="Enter a message"
-                            margin="normal"
+                            placeholder="Enter a message..."
                             onChange={this.onInputChange}
                             value={this.state.input}
-                            onKeyPress={e => (e.key === 'Enter' ? this.handleSendClick() : null)}
+                            onKeyPress={e => (e.key === 'Enter' ? this.onSendMessage() : null)}
+                            inputProps={{
+                            'aria-label': 'Description',
+                            }}
                         />
-                        <Fab component="button" variant="extended" aria-label="Delete" onClick={this.handleSendClick}>
+                        <Fab component="button" variant="extended" aria-label="Delete" onClick={this.onSendMessage}>
                             <SendIcon />
                             Send
                         </Fab>
