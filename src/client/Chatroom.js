@@ -178,14 +178,14 @@ export default class Chatroom extends React.Component {
                         <Title>
                             {this.props.chatroom.name}
                         </Title>
-                        <Button variant="contained" color="secondary" onClick={this.onLeave} >
+                        <Button variant="contained" color="secondary" onClick={this.props.unregisterHandler} >
                             Close
                         </Button>
                     </Header>
                     <ChatroomImage src={this.props.chatroom.image}/>
                     <ChatPanel>
                         <Scrollable ref={this.panel}>
-                            {this.showAllMessages(this.props.messages)}
+                            {this.showAllMessages(this.state.chatHistory)}
                         </Scrollable>
                         <InputPanel>
                         <TextField
