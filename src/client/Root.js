@@ -37,6 +37,54 @@ const chatrooms = [
                 img: userImage2,
                 key: 2,
             },
+            {
+                user: "PERSON 3",
+                message: "BLÄBLÄ",
+                img: userImage3,
+                key: 3,
+            },
+            {
+                user: "PERSON 1",
+                message: "SKIT PÅ DIG",
+                img: userImage1,
+                key: 4,
+            },
+            {
+                user: "PERSON 2",
+                message: "HIHIHIH",
+                img: userImage2,
+                key: 5,
+            },
+            {
+                user: "PERSON 3",
+                message: "SNYGGT SAGT!",
+                img: userImage3,
+                key: 6,
+            },
+            {
+                user: "PERSON 3",
+                message: "BLÄBLÄ",
+                img: userImage3,
+                key: 7,
+            },
+            {
+                user: "PERSON 1",
+                message: "SKIT PÅ DIG",
+                img: userImage1,
+                key: 8,
+            },
+            {
+                user: "PERSON 2",
+                message: "HIHIHIH",
+                img: userImage2,
+                key: 9,
+            },
+            {
+                user: "PERSON 3",
+                message: "SNYGGT SAGT!",
+                img: userImage3,
+                key: 10,
+            },
         ],
     },
     {
@@ -95,69 +143,6 @@ const chatrooms = [
     }
 ]
 
-const messages = [
-    {
-        user: "PERSON 1",
-        message: "HEJSAN",
-        img: userImage1,
-        key: 1,
-    },
-    {
-        user: "PERSON 2",
-        message: "BLÄBLÄ",
-        img: userImage2,
-        key: 2,
-    },
-    {
-        user: "PERSON 3",
-        message: "BLÄBLÄ",
-        img: userImage3,
-        key: 3,
-    },
-    {
-        user: "PERSON 1",
-        message: "SKIT PÅ DIG",
-        img: userImage1,
-        key: 4,
-    },
-    {
-        user: "PERSON 2",
-        message: "HIHIHIH",
-        img: userImage2,
-        key: 5,
-    },
-    {
-        user: "PERSON 3",
-        message: "SNYGGT SAGT!",
-        img: userImage3,
-        key: 6,
-    },
-    {
-        user: "PERSON 3",
-        message: "BLÄBLÄ",
-        img: userImage3,
-        key: 7,
-    },
-    {
-        user: "PERSON 1",
-        message: "SKIT PÅ DIG",
-        img: userImage1,
-        key: 8,
-    },
-    {
-        user: "PERSON 2",
-        message: "HIHIHIH",
-        img: userImage2,
-        key: 9,
-    },
-    {
-        user: "PERSON 3",
-        message: "SNYGGT SAGT!",
-        img: userImage3,
-        key: 10,
-    },
-]
-
 class Root extends React.Component {
     constructor(props, context){
         super(props);
@@ -171,6 +156,7 @@ class Root extends React.Component {
 
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
+        this.handleSendMessage = this.handleSendMessage.bind(this);
     }
     
     handleChatroomClick(clickedRoom, e) {
@@ -194,6 +180,23 @@ class Root extends React.Component {
         })
     }
 
+    handleSendMessage(message, callback) {
+        console.log("message was sent: ", message);
+        const lastMessages = this.state.selectedChatroom.messages.concat();
+        const newMessage = {
+            user: this.state.user.name,
+            message,
+            img: userImage1,
+            key: 1231223321,
+        }
+        const newMessages = [...lastMessages, newMessage];
+        
+        //TODO add messages to selectedChatroom
+        
+        console.log(this.state.selectedChatroom);
+        callback();
+    }
+
     isUserAndChatroomSelected() {
         const {selectedChatroom, user} = this.state;
         if(selectedChatroom && user) 
@@ -206,9 +209,10 @@ class Root extends React.Component {
         return (
             <Chatroom
                 chatroom={this.state.selectedChatroom}
-                chatHistory={chatrooms[0].messages}
+                chatHistory={this.state.selectedChatroom.messages}
                 registerHandler={this.state.client.registerHandler}
                 unregisterHandler={this.handleChatroomLeave}
+                onSendMessage={this.handleSendMessage}
             />
         )
     }
