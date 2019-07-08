@@ -73,7 +73,7 @@ function fullName(user) {
 
 function MainLayout(props) {
   const [open, setOpen] = React.useState(false);
-  const [selectedUser, setSelectedUser] = React.useState(null);
+  const selectedUser = props.user;
 
   function handleClickOpen(){
     setOpen(true);
@@ -82,7 +82,7 @@ function MainLayout(props) {
 
   const handleClose = user => {
     setOpen(false);
-    setSelectedUser(user);
+    props.onUserChange(user);
   }
 
   return (
@@ -93,7 +93,7 @@ function MainLayout(props) {
             <Relative>
               <Sticky>
                 <AvatarWrapper onClick={handleClickOpen} >
-                  <Avatar src={UserImages}/>
+                  <Avatar src={selectedUser}/>
                   <UserName> { fullName(selectedUser) } </UserName>
                 </AvatarWrapper>
               </Sticky>

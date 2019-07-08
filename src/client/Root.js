@@ -24,18 +24,74 @@ const chatrooms = [
     {
         name: "ALEXANDRIA",
         image: chatroomImage,
+        messages: [
+            {
+                user: "PERSON 1",
+                message: "HEJSAN",
+                img: userImage1,
+                key: 1,
+            },
+            {
+                user: "PERSON 2",
+                message: "BLÄBLÄ",
+                img: userImage2,
+                key: 2,
+            },
+        ],
     },
     {
         name: "ÅLAND",
         image: chatroomImage2,
+        messages: [
+            {
+                user: "PERSON 1",
+                message: "HEJSAN",
+                img: userImage1,
+                key: 1,
+            },
+            {
+                user: "PERSON 2",
+                message: "BLÄBLÄ",
+                img: userImage2,
+                key: 2,
+            },
+        ],
     },
     {
         name: "SVERIGE",
         image: chatroomImage3,
+        messages: [
+            {
+                user: "PERSON 1",
+                message: "HEJSAN",
+                img: userImage1,
+                key: 1,
+            },
+            {
+                user: "PERSON 2",
+                message: "BLÄBLÄ",
+                img: userImage2,
+                key: 2,
+            },
+        ],
     },
     {
         name: "USA",
         image: chatroomImage4,
+        messages: [
+            {
+                user: "PERSON 1",
+                message: "HEJSAN",
+                img: userImage1,
+                key: 1,
+            },
+            {
+                user: "PERSON 2",
+                message: "BLÄBLÄ",
+                img: userImage2,
+                key: 2,
+            },
+        ],
     }
 ]
 
@@ -112,15 +168,47 @@ class Root extends React.Component {
             chatrooms: chatrooms,
             selectedChatroom: null,
         }
+
+        this.handleUserChange = this.handleUserChange.bind(this);
+        this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
     }
     
+    handleChatroomClick(clickedRoom, e) {
+        this.setState({
+            selectedChatroom : clickedRoom
+        });
+        console.log('Clicked and selected chatroom', clickedRoom)
+    }
+
+    handleChatroomLeave() {
+        const lastChatroom = this.state.selectedChatroom;
+        this.setState({
+            selectedChatroom : null
+        });
+        console.log('Left chatroom: ', lastChatroom);
+    }
+
+    handleUserChange(user) {
+        this.setState({
+            user: user
+        })
+    }
+
+    isUserAndChatroomSelected() {
+        const {selectedChatroom, user} = this.state;
+        if(selectedChatroom && user) 
+            return true;
+        else
+            return false;
+    }
+
     showChatroom() {
         return (
             <Chatroom
                 chatroom={this.state.selectedChatroom}
-                messages={messages}
+                chatHistory={chatrooms[0].messages}
                 registerHandler={this.state.client.registerHandler}
-                unregisterHandler={this.state.client.unregisterHandler}
+                unregisterHandler={this.handleChatroomLeave}
             />
         )
     }
@@ -134,25 +222,10 @@ class Root extends React.Component {
         )
     }
 
-    handleChatroomClick(clickedRoom, e) {
-        this.setState({
-            selectedChatroom : clickedRoom
-        });
-        console.log('Clicked and selected chatroom', clickedRoom)
-    }
-
-    isUserAndChatroomSelected() {
-        const {selectedChatroom, user} = this.state;
-        if(selectedChatroom && user) 
-            return true;
-        else
-            return false;
-    }
-
     render() {
         return (
             <MuiThemeProvider>
-                <MainLayout>
+                <MainLayout user={this.state.user} onUserChange={this.handleUserChange}>
                     {this.isUserAndChatroomSelected() ? this.showChatroom() : this.showHome() }
                 </MainLayout>
             </MuiThemeProvider>
