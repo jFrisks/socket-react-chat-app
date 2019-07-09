@@ -7,9 +7,11 @@ import ChatroomPreview from './ChatroomPreview';
 import Chatroom from './Chatroom';
 import Home from './Home';
 import Loader from './Loader';
-import Socket from './socket';
 
+import socket from './socket';
+import localSocket from './localSocket';
 import users from '../config/users'
+
 import chatroomImage from '../public/chatrooms/alexandria.jpg';
 import chatroomImage2 from '../public/chatrooms/hilltop.jpg';
 import chatroomImage3 from '../public/chatrooms/sanctuary.jpg';
@@ -18,7 +20,7 @@ import userImage1 from '../public/users/carol.jpg';
 import userImage2 from '../public/users/daryl.jpg';
 import userImage3 from '../public/users/negan.jpeg';
 import userImage4 from '../public/users/rick.jpg';
-import socket from './socket';
+
 
 const chatrooms = [
     {
@@ -148,7 +150,7 @@ class Root extends React.Component {
         super(props);
 
         this.state = {
-            client: socket(),
+            client: localSocket(),
             user: null,
             chatrooms: chatrooms,
             selectedChatroom: null,
@@ -181,6 +183,8 @@ class Root extends React.Component {
     }
 
     handleSendMessage(message, callback) {
+
+        
         console.log("message was sent: ", message);
         const lastMessages = this.state.selectedChatroom.messages.concat();
         const newMessage = {
@@ -209,10 +213,11 @@ class Root extends React.Component {
         return (
             <Chatroom
                 chatroom={this.state.selectedChatroom}
+                user={this.state.user}
                 chatHistory={this.state.selectedChatroom.messages}
                 registerHandler={this.state.client.registerHandler}
                 unregisterHandler={this.handleChatroomLeave}
-                onSendMessage={this.handleSendMessage}
+                onSendMessage={this.state.client.handleSendMessage}
             />
         )
     }
