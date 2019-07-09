@@ -1,11 +1,15 @@
 import localServer from '../server/localServer';
 
 export default function() {
-    
+    const server = localServer();
+
     function registerHandler(onMessageReceived) {
         //socket.on('message', onMessageReceived)
         //local should call method from localServer
-        localServer().handleRegister()
+        //TODO - fix correct username
+
+        const userName = 'MOCKUP USER';
+        register(userName, onMessageReceived)
 
         /*
         //temp
@@ -26,8 +30,9 @@ export default function() {
         //socket.off('message')
     }
 
-    function register(name, cb) {
+    function register(name, onMessageReceived) {
         //socket.emit('register', name, cb)
+        server.register('register', name, onMessageReceived)
     }
 
     function join(chatRoomName, cb) {
@@ -39,7 +44,16 @@ export default function() {
     }
 
     function message(chatRoomName, msg, cb){
+        //TODO - TEMP - fix all props
+        const messageEntry = {
+            user: 'Mockup User',
+            message: msg,
+            img: '',
+            key: msg+'12'+chatRoomName,
+        }
+
         //socket.emit('message', {chatRoomName, message: msg}, cb)
+        server.message('message', messageEntry, cb)    //TEMP
     }
 
     function getChatRooms(cb) {

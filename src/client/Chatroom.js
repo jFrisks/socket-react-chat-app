@@ -138,12 +138,12 @@ export default class Chatroom extends React.Component {
             });
         })
 
-        //TODO - TEMPORARY - adding message to chat 
+        //TODO - TEMPORARY BELOW - adding message to chat 
         const newMessage = {
             user: this.props.user.name,
             message,
             img: userImage1,
-            key: 1231223321,
+            key: this.props.user.name+'12'+message,
         }
         this.updateChatHistory(newMessage)
     }
