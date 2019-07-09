@@ -11,6 +11,8 @@ import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
 
 import Overlay from './Overlay';
 
+import userImage1 from '../public/users/carol.jpg';
+
 const ChatWindow = styled.div`
     background-image: url(${props => props.bgImage});
     background-size: cover;
@@ -101,6 +103,8 @@ export default class Chatroom extends React.Component {
         }
 
         this.onSendMessage = this.onSendMessage.bind(this);
+        this.updateChatHistory = this.updateChatHistory.bind(this);
+        this.onMessageReceived = this.onMessageReceived.bind(this);
     }
 
     componentDidMount(){
@@ -109,7 +113,6 @@ export default class Chatroom extends React.Component {
         this.scrollToChatBottom();
     }
     componentDidUpdate(){
-        //Fetch the new chathistory
         this.scrollToChatBottom();
     }
     componentWillUnmount(){
@@ -124,6 +127,7 @@ export default class Chatroom extends React.Component {
     }
 
     onSendMessage() {
+        const message = this.state.input;
         if (!this.state.input)
             return
         this.props.onSendMessage(this.state.input, (err) => {
@@ -133,14 +137,26 @@ export default class Chatroom extends React.Component {
                 input: ''
             });
         })
+
+        //TODO - TEMPORARY - adding message to chat 
+        const newMessage = {
+            user: this.props.user.name,
+            message,
+            img: userImage1,
+            key: 1231223321,
+        }
+        this.updateChatHistory(newMessage)
     }
 
-    onMessageReceived = () => {
-        //TODO
+    onMessageReceived(messageEntry) {
+        console.log('onMessagedReceived: ', messageEntry);
+        this.updateChatHistory(messageEntry);
     }
 
-    updateChatHistory = () => {
-        //TODO
+    updateChatHistory(messageEntry) {
+        this.setState({
+            chatHistory: this.state.chatHistory.concat(messageEntry)
+        });
     }
 
     scrollToChatBottom() {
