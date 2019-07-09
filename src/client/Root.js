@@ -183,9 +183,7 @@ class Root extends React.Component {
     }
 
     handleSendMessage(message, callback) {
-
-        
-        console.log("message was sent: ", message);
+        /*
         const lastMessages = this.state.selectedChatroom.messages.concat();
         const newMessage = {
             user: this.state.user.name,
@@ -194,11 +192,21 @@ class Root extends React.Component {
             key: 1231223321,
         }
         const newMessages = [...lastMessages, newMessage];
-        
-        //TODO add messages to selectedChatroom
+        */
+        /*
+        //MOCKUP TEMP
+        console.log("message was sent: ", message);
         
         console.log(this.state.selectedChatroom);
         callback();
+        */
+
+        //TODO: call the messagefunction in client
+        this.state.client.message(
+            this.state.selectedChatroom.name,
+            message,
+            callback
+        );
     }
 
     isUserAndChatroomSelected() {
@@ -217,7 +225,7 @@ class Root extends React.Component {
                 chatHistory={this.state.selectedChatroom.messages}
                 registerHandler={this.state.client.registerHandler}
                 unregisterHandler={this.handleChatroomLeave}
-                onSendMessage={this.state.client.handleSendMessage}
+                onSendMessage={this.handleSendMessage}
             />
         )
     }
