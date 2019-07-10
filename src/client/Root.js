@@ -154,8 +154,7 @@ class Root extends React.Component {
             user: null,
             chatrooms: chatrooms,
             selectedChatroom: null,
-        }
-
+        }        
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
@@ -177,31 +176,13 @@ class Root extends React.Component {
     }
 
     handleUserChange(user) {
+        //TODO - image doesntt' show because of imports...
         this.setState({
             user: user
         })
     }
 
     handleSendMessage(message, callback) {
-        /*
-        const lastMessages = this.state.selectedChatroom.messages.concat();
-        const newMessage = {
-            user: this.state.user.name,
-            message,
-            img: userImage1,
-            key: 1231223321,
-        }
-        const newMessages = [...lastMessages, newMessage];
-        */
-        /*
-        //MOCKUP TEMP
-        console.log("message was sent: ", message);
-        
-        console.log(this.state.selectedChatroom);
-        callback();
-        */
-
-        //TODO: call the messagefunction in client
         this.state.client.message(
             this.state.selectedChatroom.name,
             message,
@@ -224,8 +205,9 @@ class Root extends React.Component {
                 user={this.state.user}
                 chatHistory={this.state.selectedChatroom.messages}
                 registerHandler={this.state.client.registerHandler}
-                unregisterHandler={this.handleChatroomLeave}
+                unregisterHandler={this.state.client.unregisterHandler}
                 onSendMessage={this.handleSendMessage}
+                onLeave={this.handleChatroomLeave}
             />
         )
     }
@@ -242,7 +224,7 @@ class Root extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <MainLayout user={this.state.user} onUserChange={this.handleUserChange}>
+                <MainLayout user={this.state.user} onUserChange={this.handleUserChange} availableUsers={users} getAvailableUsers={(setAvailableUsersCallback) => console.log('on my way to handle user sending')}>
                     {this.isUserAndChatroomSelected() ? this.showChatroom() : this.showHome() }
                 </MainLayout>
             </MuiThemeProvider>

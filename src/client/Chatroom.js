@@ -165,6 +165,7 @@ export default class Chatroom extends React.Component {
 
     
     showAllMessages(messages){
+        //FUTURE - could add conditional rendering of different types of messages. Normal message, login message, log out...
         return(
             <List>
                 {messages.map(message => (
@@ -200,7 +201,7 @@ export default class Chatroom extends React.Component {
                         <Title>
                             {this.props.chatroom.name}
                         </Title>
-                        <Button variant="contained" color="secondary" onClick={this.props.unregisterHandler} >
+                        <Button variant="contained" color="secondary" onClick={this.props.onLeave} >
                             Close
                         </Button>
                     </Header>
@@ -215,6 +216,7 @@ export default class Chatroom extends React.Component {
                             onChange={this.onInputChange}
                             value={this.state.input}
                             onKeyPress={e => (e.key === 'Enter' ? this.onSendMessage() : null)}
+                            autoComplete='off'
                             inputProps={{
                             'aria-label': 'Description',
                             }}

@@ -10,6 +10,7 @@ const ChatroomWrapper = styled.section`
     background-color: #123EDF;
     width: 70%;
     min-width: 250px;
+    margin-bottom: 20px;
 `
 
 function ChatroomPreview(props) {
