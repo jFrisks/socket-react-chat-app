@@ -27,6 +27,12 @@ export default [
     lastName: '',
     statusText: 'In a relationship with Lucille.',
     image: userIm3,
+  },
+  {
+    name: 'NEW',
+    lastName: 'BIE',
+    statusText: 'This is just a mockup user',
+    image: userIm3,
   }
 ]
 

@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Fullscreen from './Fullscreen';
 import Overlay from './Overlay';
 import Avatar from '@material-ui/core/Avatar';
-//import chooseAvatarDialog from './UserSelection';
+
+import FaceIcon from '@material-ui/icons/Face';
 
 import UserSelection from './UserSelection';
 
 import BGImage from '../public/background.jpg'
-import UserImages from '../public/users/daryl.jpg'
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -41,16 +41,20 @@ const Sticky = styled.div`
   position: fixed;
 `
 const AvatarWrapper = styled.div`
-cursor: pointer;
-display: flex;
-flex-direction: column;
-align-items: center;
-a {
-  text-decoration: none;
-}
-img {
-  box-shadow: rgba(255, 255, 255, 0.2) 0 0 10px 2px;
-}
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  a {
+    text-decoration: none;
+  }
+  img {
+    box-shadow: rgba(255, 255, 255, 0.2) 0 0 10px 2px;
+  }
+  .avatar {
+    height: 100px;
+    width: 100px;
+  }
 `
 const BackgroundImage = styled.div`
   background: url(${props => props.src}) no-repeat center center fixed;
@@ -67,13 +71,20 @@ const UserName = styled.p`
 
 
 function fullName(user) {
+  console.log('trying to write fullname of user with image: ', user)
   return user ? `${user.name} ${user.lastName}` : 'Who are you?'
+}
+
+function renderAvatar(user) {
+  const avatarProps = user
+    ? {src: user.image }
+    : {children: (<FaceIcon/>)}
+  return <Avatar className='avatar' {...avatarProps}/>
 }
 
 
 function MainLayout(props) {
   const [open, setOpen] = React.useState(false);
-  const selectedUser = props.user;
 
   function handleClickOpen(){
     setOpen(true);
@@ -85,6 +96,13 @@ function MainLayout(props) {
     props.onUserChange(user);
   }
 
+  /*
+  function handleGetAvailableUsers(callback) {
+    console.log('temp handling of get avaialble users')
+    callback(null, users);
+  }
+  */
+
   return (
     <Fullscreen>
       <ContentWrapper>
@@ -93,8 +111,8 @@ function MainLayout(props) {
             <Relative>
               <Sticky>
                 <AvatarWrapper onClick={handleClickOpen} >
-                  <Avatar src={selectedUser}/>
-                  <UserName> { fullName(selectedUser) } </UserName>
+                  {renderAvatar(props.user)}
+                  <UserName> { fullName(props.user) } </UserName>
                 </AvatarWrapper>
               </Sticky>
             </Relative>
@@ -107,7 +125,7 @@ function MainLayout(props) {
         <Overlay opacity="0.5" background="#EDAF05">
         </Overlay>
       </Fullscreen>
-      <UserSelection onClose={handleClose} open={open} selectedUser={selectedUser} ></UserSelection>
+      <UserSelection onClose={handleClose} open={open} selectedUser={props.user} availableUsers={props.availableUsers} ></UserSelection>
     </Fullscreen>
   );
 }

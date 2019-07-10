@@ -28,6 +28,7 @@ export default function() {
 
     function unregisterHandler() {
         //socket.off('message')
+        console.log('Server mockup handled unregister')
     }
 
     function register(name, onMessageReceived) {
