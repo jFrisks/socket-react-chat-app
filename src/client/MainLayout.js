@@ -84,17 +84,6 @@ function renderAvatar(user) {
 
 
 function MainLayout(props) {
-  const [open, setOpen] = React.useState(false);
-
-  function handleClickOpen(){
-    setOpen(true);
-    console.log('handledClick')
-  }
-
-  const handleClose = user => {
-    setOpen(false);
-    props.onUserChange(user);
-  }
 
   /*
   function handleGetAvailableUsers(callback) {
@@ -110,7 +99,7 @@ function MainLayout(props) {
           <Content>
             <Relative>
               <Sticky>
-                <AvatarWrapper onClick={handleClickOpen} >
+                <AvatarWrapper onClick={props.onUserSelectionClick} >
                   {renderAvatar(props.user)}
                   <UserName> { fullName(props.user) } </UserName>
                 </AvatarWrapper>
@@ -125,7 +114,6 @@ function MainLayout(props) {
         <Overlay opacity="0.5" background="#EDAF05">
         </Overlay>
       </Fullscreen>
-      <UserSelection onClose={handleClose} open={open} selectedUser={props.user} availableUsers={props.availableUsers} ></UserSelection>
     </Fullscreen>
   );
 }
