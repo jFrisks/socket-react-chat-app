@@ -3,7 +3,6 @@ import React from 'react';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import MainLayout from './MainLayout';
-import ChatroomPreview from './ChatroomPreview';
 import Chatroom from './Chatroom';
 import Home from './Home';
 import Loader from './Loader';
@@ -11,6 +10,7 @@ import UserSelection from './UserSelection';
 
 import socket from './socket';
 import localSocket from './localSocket';
+
 import users from '../config/users'
 
 import chatroomImage from '../public/chatrooms/alexandria.jpg';
@@ -157,7 +157,7 @@ class Root extends React.Component {
             selectedChatroom: null,
             userSelectionOpen: false
         }        
-        this.handleUserChange = this.handleUserChange.bind(this);
+        this.registerUser = this.registerUser.bind(this);
         this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleUserSelectionClickOpen = this.handleUserSelectionClickOpen.bind(this);
@@ -176,7 +176,7 @@ class Root extends React.Component {
         this.setState({
             userSelectionOpen: false
         })
-        this.handleUserChange(user);
+        this.registerUser(user);
     }
     
     handleChatroomClick(clickedRoom, e) {
@@ -194,7 +194,11 @@ class Root extends React.Component {
         console.log('Left chatroom: ', lastChatroom);
     }
 
-    handleUserChange(user) {
+    registerUser(user) {
+        //TODO - connect to server 
+        //const onRegisterResponse
+
+        //OLD locally working
         this.setState({
             user: user
         })
@@ -240,8 +244,9 @@ class Root extends React.Component {
     }
 
     showUserSelection() {
+        //Users are loading in background since we render but use open state to shof/hide it
         return (
-            <UserSelection onClose={this.handleClose} open={this.state.userSelectionOpen} selectedUser={this.state.user} availableUsers={users} ></UserSelection>
+            <UserSelection onClose={this.handleClose} open={this.state.userSelectionOpen} selectedUser={this.state.user} getAvailableUsers={this.state.client.getAvailableUsers} ></UserSelection>
         )
     }
 

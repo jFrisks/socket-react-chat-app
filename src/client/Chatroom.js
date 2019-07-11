@@ -26,13 +26,6 @@ const ChatWindow = styled.div`
     box-sizing: border-box;
 `
 
-const ChatroomImage = styled.img`
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 100%;
-`
-
 const ChatPanel = styled.div`
     position: relative;
     display: inline-flex;
@@ -90,12 +83,6 @@ export default class Chatroom extends React.Component {
         this.panel = React.createRef();
 
         const { chatHistory } = props;
-
-        /** props
-        registerHandler
-        unregisterHandler
-        chatHistory
-        */
 
         this.state = {
             input: '',

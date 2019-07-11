@@ -1,29 +1,20 @@
 import localServer from '../server/localServer';
 
+import users from '../config/users';
+
 export default function() {
-    const server = localServer();
+    const socket = localServer();
 
     function registerHandler(onMessageReceived) {
+        //TODO - fix correct username and the actual call i want here
+        //messageReceived takes messageEntry
         //socket.on('message', onMessageReceived)
-        //local should call method from localServer
-        //TODO - fix correct username
 
+        //local should call method from localServer - This is mockup - server should provide the message
         const userName = 'MOCKUP USER';
         register(userName, onMessageReceived)
 
-        /*
-        //temp
-        console.log('temp register Handler')
-
-        const tempMessage = {
-            user: 'Mockup User',
-            message: 'Logged In',
-            img: '',
-            key: 1231223321,
-        }
-
-        onMessageReceived(tempMessage);
-        */
+        socket.message(onMessageReceived)
     }
 
     function unregisterHandler() {
@@ -33,7 +24,7 @@ export default function() {
 
     function register(name, onMessageReceived) {
         //socket.emit('register', name, cb)
-        server.register('register', name, onMessageReceived)
+        socket.register('register', name, onMessageReceived)
     }
 
     function join(chatRoomName, cb) {
@@ -45,7 +36,7 @@ export default function() {
     }
 
     function message(chatRoomName, msg, cb){
-        //TODO - TEMP - fix all props
+        //TODO - TEMP - fix all props and get messages
         const messageEntry = {
             user: 'Mockup User',
             message: msg,
@@ -54,15 +45,22 @@ export default function() {
         }
 
         //socket.emit('message', {chatRoomName, message: msg}, cb)
-        server.message('message', messageEntry, cb)    //TEMP
+        socket.message('message', messageEntry, cb)    //TEMP
     }
 
     function getChatRooms(cb) {
         //socket.emit('chatrooms', null, cb)
     }
 
-    function getAvailableUsers(cb) {
+    function getAvailableUsers(updateAvailableUsersCallback) {
         //socket.emit('availableUsers', null, cb)
+
+        //TODO - TEMP MOCKUP getting users
+        console.log('server is getting users...')
+        setTimeout(() => {
+            updateAvailableUsersCallback(null, users)
+        }, 10000)
+        
     }
 
     return {
