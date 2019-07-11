@@ -7,6 +7,7 @@ import ChatroomPreview from './ChatroomPreview';
 import Chatroom from './Chatroom';
 import Home from './Home';
 import Loader from './Loader';
+import UserSelection from './UserSelection';
 
 import socket from './socket';
 import localSocket from './localSocket';
@@ -154,10 +155,28 @@ class Root extends React.Component {
             user: null,
             chatrooms: chatrooms,
             selectedChatroom: null,
+            userSelectionOpen: false
         }        
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
+        this.handleUserSelectionClickOpen = this.handleUserSelectionClickOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleUserSelectionClickOpen(){
+        this.setState({
+            userSelectionOpen: true
+        },
+        () => console.log('handledClick. UserSel should be: ', this.state.userSelectionOpen)
+        )
+    }
+  
+    handleClose(user) {
+        this.setState({
+            userSelectionOpen: false
+        })
+        this.handleUserChange(user);
     }
     
     handleChatroomClick(clickedRoom, e) {
@@ -176,7 +195,6 @@ class Root extends React.Component {
     }
 
     handleUserChange(user) {
-        //TODO - image doesntt' show because of imports...
         this.setState({
             user: user
         })
@@ -221,11 +239,18 @@ class Root extends React.Component {
         )
     }
 
+    showUserSelection() {
+        return (
+            <UserSelection onClose={this.handleClose} open={this.state.userSelectionOpen} selectedUser={this.state.user} availableUsers={users} ></UserSelection>
+        )
+    }
+
     render() {
         return (
             <MuiThemeProvider>
-                <MainLayout user={this.state.user} onUserChange={this.handleUserChange} availableUsers={users} getAvailableUsers={(setAvailableUsersCallback) => console.log('on my way to handle user sending')}>
+                <MainLayout user={this.state.user} onUserSelectionClick={this.handleUserSelectionClickOpen}>
                     {this.isUserAndChatroomSelected() ? this.showChatroom() : this.showHome() }
+                    {this.showUserSelection()}
                 </MainLayout>
             </MuiThemeProvider>
         )

@@ -8,7 +8,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import users from '../config/users'
 import Loader from './Loader';
 
 class ChooseAvatarDialog extends React.Component {
