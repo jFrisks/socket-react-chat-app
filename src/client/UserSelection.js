@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Dialog, DialogTitle, Avatar} from '@material-ui/core';
 import List from '@material-ui/core/List';
@@ -15,22 +14,23 @@ class ChooseAvatarDialog extends React.Component {
     constructor(props) {
         super(props);
 
-        /*
         this.state = {
             availableUsers: null,
         }
 
-        
-        this.props.getAvailableUsers((err, availableUsers) => {
-            this.setState({availableUsers})
-        })
-        */
         this.renderUserListItems = this.renderUserListItems.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleListUserClick = this.handleListUserClick.bind(this);
+        this.handleUserSelection = this.handleUserSelection.bind(this);
         this.isUserSelected = this.isUserSelected.bind(this);
     }
-    //props.getAvailableUsers((err, users) => setAvailableUsers(users))
+
+    componentDidMount() {
+        const setAvailableUserCallback = (err, availableUsers) => {
+            console.log('client got the availableUsers: ', availableUsers)
+            this.setState({availableUsers})
+        }
+        this.props.getAvailableUsers(setAvailableUserCallback)
+    }
 
     isUserSelected = (user) => {
         if(user === this.props.selectedUser) return true;
@@ -41,13 +41,13 @@ class ChooseAvatarDialog extends React.Component {
         this.props.onClose(this.props.selectedUser)
     }
 
-    handleListUserClick(user) {
+    handleUserSelection(user) {
         this.props.onClose(user)
     }
 
     renderUserListItems() {
-        return this.props.availableUsers.map((user) => (
-            <ListItem button selected={this.isUserSelected(user)} onClick={() => this.handleListUserClick(user)} key={user.name}>
+        return this.state.availableUsers.map((user) => (
+            <ListItem button selected={this.isUserSelected(user)} onClick={() => this.handleUserSelection(user)} key={user.name}>
                 <ListItemAvatar>
                     <Avatar src={user.image}/>
                 </ListItemAvatar>
@@ -60,7 +60,7 @@ class ChooseAvatarDialog extends React.Component {
         return (
             <Dialog onClose={this.handleClose} open={this.props.open}>
                 <DialogTitle>Choose User</DialogTitle>
-                    {!this.props.availableUsers
+                    {!(this.state.availableUsers)
                         ?   <Loader /> 
                         : (
                             <List>

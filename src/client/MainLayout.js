@@ -6,8 +6,6 @@ import Avatar from '@material-ui/core/Avatar';
 
 import FaceIcon from '@material-ui/icons/Face';
 
-import UserSelection from './UserSelection';
-
 import BGImage from '../public/background.jpg'
 
 const ContentWrapper = styled.div`

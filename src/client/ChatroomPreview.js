@@ -17,7 +17,7 @@ function ChatroomPreview(props) {
     const {chatroom, onEnter} = props;
 
     return (
-        <ChatroomWrapper padding key={props.key}>
+        <ChatroomWrapper padding>
             <Card onClick={(e) => onEnter(chatroom, e)}>
                 <CardActionArea>
                     <CardMedia
