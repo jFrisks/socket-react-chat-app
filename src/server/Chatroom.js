@@ -2,9 +2,9 @@ module.exports = ({name, image}) => {
     const clientMembers = new Map()
     let chathistory = []
 
-    function broadCastMessage(message) {
+    function broadCastMessage(messageEntry) {
         clientMembers.forEach(c => {
-            c.emit('message', message)
+            c.emit('message', messageEntry)
         });
     }
 

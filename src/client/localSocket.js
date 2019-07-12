@@ -6,25 +6,27 @@ export default function() {
     const socket = localServer();
 
     function registerHandler(onMessageReceived) {
-        //TODO - fix correct username and the actual call i want here
-        //messageReceived takes messageEntry
+        //This set's up a listener, in client, for messages. Should tell the server how to handle sending a message
+
+        //Should be 
         //socket.on('message', onMessageReceived)
 
-        //local should call method from localServer - This is mockup - server should provide the message
-        const userName = 'MOCKUP USER';
-        register(userName, onMessageReceived)
-
-        socket.message(onMessageReceived)
+        //TODO - MOCKUP - fix correct username and the actual call i want here
+        //messageReceived takes messageEntry
+        socket.onMessage('message', onMessageReceived)
     }
 
     function unregisterHandler() {
+        //TODO
         //socket.off('message')
         console.log('Server mockup handled unregister')
     }
 
-    function register(name, onMessageReceived) {
+    function register(user, cb) {
+        //TODO
         //socket.emit('register', name, cb)
-        socket.register('register', name, onMessageReceived)
+        if(!user) Error('No user when client tried to send register-req to server')
+        else socket.register('register', user.name, cb)
     }
 
     function join(chatRoomName, cb) {
@@ -54,13 +56,7 @@ export default function() {
 
     function getAvailableUsers(updateAvailableUsersCallback) {
         //socket.emit('availableUsers', null, cb)
-
-        //TODO - TEMP MOCKUP getting users
-        console.log('server is getting users...')
-        setTimeout(() => {
-            updateAvailableUsersCallback(null, users)
-        }, 10000)
-        
+        socket.availableUsers('availableUsers', null, updateAvailableUsersCallback)        
     }
 
     return {

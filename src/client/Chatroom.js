@@ -115,15 +115,17 @@ export default class Chatroom extends React.Component {
 
     onSendMessage() {
         const message = this.state.input;
-        if (!this.state.input)
-            return
-        this.props.onSendMessage(this.state.input, (err) => {
+        const serverGotMessageCallback = (err) => {
             if (err)
                 return console.error(err);
             return this.setState({
                 input: ''
-            });
-        })
+            })
+        }
+
+        if (!this.state.input)
+            return
+        this.props.onSendMessage(this.state.input, serverGotMessageCallback)
 
         //TODO - TEMPORARY BELOW - adding message to chat 
         const newMessage = {

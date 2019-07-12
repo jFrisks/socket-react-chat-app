@@ -155,13 +155,14 @@ class Root extends React.Component {
             user: null,
             chatrooms: chatrooms,
             selectedChatroom: null,
-            userSelectionOpen: false
+            userSelectionOpen: false,
         }        
         this.registerUser = this.registerUser.bind(this);
         this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleUserSelectionClickOpen = this.handleUserSelectionClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleSelection = this.handleSelection.bind(this);
     }
 
     handleUserSelectionClickOpen(){
@@ -172,10 +173,11 @@ class Root extends React.Component {
         )
     }
   
-    handleClose(user) {
-        this.setState({
-            userSelectionOpen: false
-        })
+    handleClose() {
+        this.setState({userSelectionOpen : false})
+    }
+
+    handleSelection(user) {
         this.registerUser(user);
     }
     
@@ -194,14 +196,29 @@ class Root extends React.Component {
         console.log('Left chatroom: ', lastChatroom);
     }
 
-    registerUser(user) {
-        //TODO - connect to server 
-        //const onRegisterResponse
+    registerUser(userToRegister) {
+        //TODO - connect to server. Also look if we should replace isRegisterInProcess with userSelectionOpen
 
-        //OLD locally working
+        //callback after user has been registred
+        const onRegisterResponse = (user) => this.setState({userSelectionOpen : false, user})
+        const onRegisterCallback = (err, user) => {
+            //handle errors otherwise return user. Or, you could also most likely assume user is null or user and do one onRegisterResponse call
+            //TODO - remove return statements
+            if (err) return onRegisterResponse(null)
+            else return onRegisterResponse(user)
+        }
+
+        console.log('calling client to server to handle Register')
+        this.setState({userSelectionOpen : true})
+        this.state.client.register(userToRegister, onRegisterCallback)
+
+        //TODO - remove OLD locally working
+        /*
         this.setState({
-            user: user
+            user: userToRegister,
+            userSelectionOpen: false
         })
+        */
     }
 
     handleSendMessage(message, callback) {
@@ -246,7 +263,13 @@ class Root extends React.Component {
     showUserSelection() {
         //Users are loading in background since we render but use open state to shof/hide it
         return (
-            <UserSelection onClose={this.handleClose} open={this.state.userSelectionOpen} selectedUser={this.state.user} getAvailableUsers={this.state.client.getAvailableUsers} ></UserSelection>
+            <UserSelection
+                onClose={this.handleClose}
+                onSelection={this.handleSelection}
+                open={this.state.userSelectionOpen}
+                selectedUser={this.state.user}
+                getAvailableUsers={this.state.client.getAvailableUsers}
+            />
         )
     }
 
