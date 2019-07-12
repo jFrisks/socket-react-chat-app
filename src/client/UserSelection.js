@@ -38,11 +38,11 @@ class ChooseAvatarDialog extends React.Component {
     }
 
     handleClose() {
-        this.props.onClose(this.props.selectedUser)
+        this.props.onClose()
     }
 
     handleUserSelection(user) {
-        this.props.onClose(user)
+        this.props.onSelection(user)
     }
 
     renderUserListItems() {
