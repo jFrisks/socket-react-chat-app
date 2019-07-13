@@ -151,10 +151,11 @@ class Root extends React.Component {
         this.state = {
             client: localSocket(),
             user: null,
-            chatrooms: chatrooms,
+            chatrooms: null,
             selectedChatroom: null,
             userSelectionOpen: false,
         }        
+
         this.registerUser = this.registerUser.bind(this);
         this.handleOnLeaveChatroom = this.handleOnLeaveChatroom.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
@@ -163,6 +164,19 @@ class Root extends React.Component {
         this.handleRegister = this.handleRegister.bind(this);
         this.onEnterChatroom = this.onEnterChatroom.bind(this);
         this.onLeaveChatroom = this.onLeaveChatroom.bind(this);
+        this.getChatrooms = this.getChatrooms.bind(this);
+    }
+
+    componentDidMount() {
+        console.log('comp did mount')
+        this.getChatrooms()
+    }
+
+    getChatrooms() {
+        const getChatroomsCallback = (err, chatrooms) => {
+            this.setState({chatrooms})
+        }
+        this.state.client.getChatRooms(getChatroomsCallback)
     }
 
     handleUserSelectionClickOpen(){
@@ -183,8 +197,11 @@ class Root extends React.Component {
         }
         const onEnterChatroomSuccess = (chatHistory) => {
             //TODO - push to history with router. Now pretty useless i guess since Chatroom should take care of actual chatHistory and displaying it
-            console.log('TODO - handle push to history of chatHistory: ', chatHistory)
-            this.setState({selectedChatroom: chatroom})
+            console.log('Pushed history from server to ROOT state chatHistory: ', chatHistory)
+            this.setState({
+                chatHistory,
+                selectedChatroom: chatroom
+            })
         }
 
         this.onEnterChatroom(chatroom.name, onNoUserSelected, onEnterChatroomSuccess)
@@ -267,7 +284,7 @@ class Root extends React.Component {
             <Chatroom
                 chatroom={this.state.selectedChatroom}
                 user={this.state.user}
-                chatHistory={this.state.selectedChatroom.messages}
+                chatHistory={this.state.chatHistory}
                 registerHandler={this.state.client.registerHandler}
                 unregisterHandler={this.state.client.unregisterHandler}
                 onSendMessage={this.handleSendMessage}
@@ -278,11 +295,17 @@ class Root extends React.Component {
 
     showHome() {
         return (
-            <Home
-                chatrooms={chatrooms}
-                onEnterChatroom={this.handleOnEnterChatroom}
-                onEnterChatroomOld={(chatroom, e) => this.handleChatroomClick(chatroom, e)}
-            />
+            <React.Fragment>
+                {!this.state.chatrooms
+                    ? <Loader />
+                    : (
+                        <Home
+                            chatrooms={this.state.chatrooms}
+                            onEnterChatroom={this.handleOnEnterChatroom}
+                        />
+                    )
+                }
+            </React.Fragment>
         )
     }
 

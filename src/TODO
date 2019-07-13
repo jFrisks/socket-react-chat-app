@@ -3,7 +3,9 @@ FIXED?  PRIO 1-10       TODO
 [X]      [6]            Fix unregisterHandler
 [X]      [6]            Fix join
 [X]      [6]            Fix leave
-[ ]      [5]            Fix format of messages and users, chatrooms...
+[X]      [5]            Fix format of messages and users, chatrooms...
+[X]      [6]            Use getAvailable Chatrooms
+[ ]      [5]            Fix onSendMessage in chatroom
 [ ]      [5]            Add real server and client
 [X]      [4]            Fix registration change for same client, or add UX
 [ ]      [2]            Add isJoiningInProccess
@@ -15,7 +17,7 @@ FIXED?  PRIO 1-10       TODO
 
 BACKLOG - EXTRA FEATURES
 [ ]      [1]            Add isTyping Indicator
-[ ]      [1]            Change to Stranger Things
+[ ]      [1]            Change to Stranger Things with theme context
 [ ]      [4]            Change to use router
 [ ]      [ ]            Split code for Single Responsiblitiy
 
@@ -25,3 +27,4 @@ TO LEARN                |
 [ ]      [ ]            Router
 [ ]      [ ]            Error handling
 [ ]      [ ]            Higher Order Component
+[ ]      [ ]            Add theme context so you learn that

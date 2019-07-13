@@ -53,6 +53,8 @@ export default function() {
 
     function getChatRooms(cb) {
         //socket.emit('chatrooms', null, cb)
+        console.log('Getting chatrooms. Socket is reaching for server')
+        socket.getChatRooms('chatrooms', null, cb)
     }
 
     function getAvailableUsers(updateAvailableUsersCallback) {
