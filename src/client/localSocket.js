@@ -29,6 +29,8 @@ export default function() {
 
     function join(chatRoomName, cb) {
         //socket.emit('join', chatRoomName, cb)
+        console.log('TODO: handle client JOIN in socket')
+        socket.join('join', chatRoomName, cb)
     }
 
     function leave(chatRoomName, cb) {

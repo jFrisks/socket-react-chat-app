@@ -53,6 +53,10 @@ const AvatarWrapper = styled.div`
     height: 100px;
     width: 100px;
   }
+
+  .avatar-icon {
+    font-size: 100px;
+  }
 `
 const BackgroundImage = styled.div`
   background: url(${props => props.src}) no-repeat center center fixed;
@@ -76,7 +80,7 @@ function fullName(user) {
 function renderAvatar(user) {
   const avatarProps = user
     ? {src: user.image }
-    : {children: (<FaceIcon/>)}
+    : {children: (<FaceIcon className='avatar-icon' />)}
   return <Avatar className='avatar' {...avatarProps}/>
 }
 
