@@ -11,8 +11,6 @@ import UserSelection from './UserSelection';
 import socket from './socket';
 import localSocket from './localSocket';
 
-import users from '../config/users'
-
 import chatroomImage from '../public/chatrooms/alexandria.jpg';
 import chatroomImage2 from '../public/chatrooms/hilltop.jpg';
 import chatroomImage3 from '../public/chatrooms/sanctuary.jpg';
