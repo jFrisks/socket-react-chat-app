@@ -37,7 +37,14 @@ export default function() {
 
     function join(type, chatroomName, cb) {
         //TODO - fix join to real deal
-        setTimeout(() => cb(null, chatHistory), 3000)
+        setTimeout(() => cb(null, chatHistory), 1000)
+    }
+
+    function leave(type, chatroomName, cb) {
+        console.log('Server temp handling leave for ', chatroomName)
+        setTimeout(() => {
+            cb(null)
+        }, 1000)   
     }
 
     function availableUsers(type, err, updateAvailableUsersCallback) {        
@@ -51,6 +58,7 @@ export default function() {
     return {
         register,
         join,
+        leave,
         message,
         availableUsers,
         onMessage,

@@ -2,7 +2,7 @@ FIXED?  PRIO 1-10       TODO
 [X]      [6]            Check UserSel register
 [X]      [6]            Fix unregisterHandler
 [X]      [6]            Fix join
-[ ]      [6]            Fix leave
+[X]      [6]            Fix leave
 [ ]      [5]            Fix format of messages and users, chatrooms...
 [ ]      [5]            Add real server and client
 [X]      [4]            Fix registration change for same client, or add UX
@@ -17,3 +17,11 @@ BACKLOG - EXTRA FEATURES
 [ ]      [1]            Add isTyping Indicator
 [ ]      [1]            Change to Stranger Things
 [ ]      [4]            Change to use router
+[ ]      [ ]            Split code for Single Responsiblitiy
+
+
+
+TO LEARN                |
+[ ]      [ ]            Router
+[ ]      [ ]            Error handling
+[ ]      [ ]            Higher Order Component
