@@ -162,6 +162,7 @@ class Root extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
         this.onEnterChatroom = this.onEnterChatroom.bind(this);
+        this.onLeaveChatroom = this.onLeaveChatroom.bind(this);
     }
 
     handleUserSelectionClickOpen(){
@@ -202,15 +203,27 @@ class Root extends React.Component {
     }
 
 
-    handleOnLeaveChatroom(chatroom, leaveCompletedCalback) {
+    handleOnLeaveChatroom() {
         //TODO - properly with react router
+        const onLeaveSuccess = () => {
+            const lastChatroom = this.state.selectedChatroom;
+            this.setState({
+                selectedChatroom : null
+            })
+            console.log('Left chatroom: ', lastChatroom);
+        }
 
-        //OLD
-        const lastChatroom = this.state.selectedChatroom;
-        this.setState({
-            selectedChatroom : null
-        });
-        console.log('Left chatroom: ', lastChatroom);
+        this.onLeaveChatroom(this.state.selectedChatroom, onLeaveSuccess)        
+    }
+
+    onLeaveChatroom(chatroom, onLeaveSuccess) {
+        //TODO - fix error handling to make it DRY
+        const onLeaveCallback = (err) => {
+            if(err)
+                return Error('Could not leave chatroom', err)
+            return onLeaveSuccess()
+        }
+        this.state.client.leave(chatroom.name, onLeaveCallback)
     }
 
     handleRegister(user) {

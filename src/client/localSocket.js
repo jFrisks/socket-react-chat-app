@@ -35,6 +35,7 @@ export default function() {
 
     function leave(chatRoomName, cb) {
         //socket.emit('leave', chatRoomName, cb)
+        socket.leave('leave', chatRoomName, cb)
     }
 
     function message(chatRoomName, msg, cb){
