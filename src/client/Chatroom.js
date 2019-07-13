@@ -114,7 +114,8 @@ export default class Chatroom extends React.Component {
     }
 
     onSendMessage() {
-        const message = this.state.input;
+        if (!this.state.input)
+            return
         const serverGotMessageCallback = (err) => {
             if (err)
                 return console.error(err);
@@ -122,17 +123,14 @@ export default class Chatroom extends React.Component {
                 input: ''
             })
         }
-
-        if (!this.state.input)
-            return
         this.props.onSendMessage(this.state.input, serverGotMessageCallback)
 
         //TODO - TEMPORARY BELOW - adding message to chat 
+        const message = this.state.input;
         const newMessage = {
             user: this.props.user.name,
             message,
-            img: userImage1,
-            key: this.props.user.name+'12'+message,
+            event: 'TEMP onSendMessage message'
         }
         this.updateChatHistory(newMessage)
     }
@@ -153,24 +151,24 @@ export default class Chatroom extends React.Component {
     }
 
     
-    showAllMessages(messages){
+    showAllMessages(chatHistory){
         //FUTURE - could add conditional rendering of different types of messages. Normal message, login message, log out...
         return(
             <List>
-                {messages.map(message => (
-                    <ListItem alignItems="flex-start" key={message.key}>
+                {chatHistory.map(chatEvent => (
+                    <ListItem alignItems="flex-start" key={chatEvent.user+chatEvent.message+chatEvent.event}>
                         <ListItemAvatar>
-                            <Avatar alt="Remy Sharp" src={message.img} />
+                            <Avatar alt="Unknown User Name" src={chatEvent.user.image} />
                         </ListItemAvatar>
                         <ListItemText 
                             primary={
                                 <OutputText>
-                                    {message.user}
+                                    {chatEvent.user.name} {chatEvent.event}
                                 </OutputText>
                             }
                             secondary={
                                 <OutputText>
-                                    {message.message}
+                                    {chatEvent.message}
                                 </OutputText>
                             }
                         />
