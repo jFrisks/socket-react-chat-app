@@ -1,4 +1,5 @@
 import users from '../config/users'
+import chatHistory from '../config/chatHistory'
 
 
 export default function() {
@@ -8,7 +9,8 @@ export default function() {
      * --- */
 
     function register(type, name, cb) {
-        //TODO
+        //TODO - add so we get back actual user
+
         console.log('Server temp handled Register for ', name);
         const messageEntry = {
             user: name,
@@ -16,8 +18,9 @@ export default function() {
             img: '',
             key: name+'122'+type,
         }
-        const user = users[0];
-
+        const user = users.find((user) => user.name === name)
+        if (!user)
+            return cb(Error(`Couldn't find user: ${name}`))
         cb(null, user);
     }
 
@@ -32,6 +35,11 @@ export default function() {
         cb();
     }
 
+    function join(type, chatroomName, cb) {
+        //TODO - fix join to real deal
+        setTimeout(() => cb(null, chatHistory), 3000)
+    }
+
     function availableUsers(type, err, updateAvailableUsersCallback) {        
         //TODO - TEMP MOCKUP getting users
         console.log('server temp is getting users...')
@@ -42,6 +50,7 @@ export default function() {
 
     return {
         register,
+        join,
         message,
         availableUsers,
         onMessage,

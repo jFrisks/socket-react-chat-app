@@ -156,11 +156,12 @@ class Root extends React.Component {
             userSelectionOpen: false,
         }        
         this.registerUser = this.registerUser.bind(this);
-        this.handleChatroomLeave = this.handleChatroomLeave.bind(this);
+        this.handleOnLeaveChatroom = this.handleOnLeaveChatroom.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleUserSelectionClickOpen = this.handleUserSelectionClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleSelection = this.handleSelection.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
+        this.onEnterChatroom = this.onEnterChatroom.bind(this);
     }
 
     handleUserSelectionClickOpen(){
@@ -174,19 +175,37 @@ class Root extends React.Component {
     handleClose() {
         this.setState({userSelectionOpen : false})
     }
-
-    handleSelection(user) {
-        this.registerUser(user);
-    }
     
-    handleChatroomClick(clickedRoom, e) {
-        this.setState({
-            selectedChatroom : clickedRoom
-        });
-        console.log('Clicked and selected chatroom', clickedRoom)
+    handleOnEnterChatroom = (chatroom) => {
+        const onNoUserSelected = () => {
+            this.setState({selectedChatroom: null})
+        }
+        const onEnterChatroomSuccess = (chatHistory) => {
+            //TODO - push to history with router. Now pretty useless i guess since Chatroom should take care of actual chatHistory and displaying it
+            console.log('TODO - handle push to history of chatHistory: ', chatHistory)
+            this.setState({selectedChatroom: chatroom})
+        }
+
+        this.onEnterChatroom(chatroom.name, onNoUserSelected, onEnterChatroomSuccess)
     }
 
-    handleChatroomLeave() {
+    onEnterChatroom(chatroomName, onNoUserSelected, onEnterChatroomSuccess) {
+        if(!this.state.user)
+            return onNoUserSelected()
+        const onEnterChatroomSuccessCallback = (err, chatHistory) => {
+            if (err)
+                return Error(err)
+            return onEnterChatroomSuccess(chatHistory)
+        }
+        
+        return this.state.client.join(chatroomName, onEnterChatroomSuccessCallback)
+    }
+
+
+    handleOnLeaveChatroom(chatroom, leaveCompletedCalback) {
+        //TODO - properly with react router
+
+        //OLD
         const lastChatroom = this.state.selectedChatroom;
         this.setState({
             selectedChatroom : null
@@ -194,9 +213,12 @@ class Root extends React.Component {
         console.log('Left chatroom: ', lastChatroom);
     }
 
+    handleRegister(user) {
+        this.registerUser(user);
+    }
+
     registerUser(userToRegister) {
         //TODO - connect to server. Also look if we should replace isRegisterInProcess with userSelectionOpen
-
         //callback after user has been registred
         const onRegisterResponse = (user) => this.setState({userSelectionOpen : false, user})
         const onRegisterCallback = (err, user) => {
@@ -209,14 +231,6 @@ class Root extends React.Component {
         console.log('calling client to server to handle Register')
         this.setState({userSelectionOpen : true})
         this.state.client.register(userToRegister, onRegisterCallback)
-
-        //TODO - remove OLD locally working
-        /*
-        this.setState({
-            user: userToRegister,
-            userSelectionOpen: false
-        })
-        */
     }
 
     handleSendMessage(message, callback) {
@@ -244,7 +258,7 @@ class Root extends React.Component {
                 registerHandler={this.state.client.registerHandler}
                 unregisterHandler={this.state.client.unregisterHandler}
                 onSendMessage={this.handleSendMessage}
-                onLeave={this.handleChatroomLeave}
+                onLeave={this.handleOnLeaveChatroom}
             />
         )
     }
@@ -253,7 +267,8 @@ class Root extends React.Component {
         return (
             <Home
                 chatrooms={chatrooms}
-                onEnterChatroom={(chatroom, e) => this.handleChatroomClick(chatroom, e)}
+                onEnterChatroom={this.handleOnEnterChatroom}
+                onEnterChatroomOld={(chatroom, e) => this.handleChatroomClick(chatroom, e)}
             />
         )
     }
@@ -263,7 +278,7 @@ class Root extends React.Component {
         return (
             <UserSelection
                 onClose={this.handleClose}
-                onSelection={this.handleSelection}
+                onSelection={this.handleRegister}
                 open={this.state.userSelectionOpen}
                 selectedUser={this.state.user}
                 getAvailableUsers={this.state.client.getAvailableUsers}
