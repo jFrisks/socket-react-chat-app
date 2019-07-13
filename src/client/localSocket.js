@@ -1,7 +1,5 @@
 import localServer from '../server/localServer';
 
-import users from '../config/users';
-
 export default function() {
     const socket = localServer();
 

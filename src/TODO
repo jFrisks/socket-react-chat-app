@@ -1,6 +1,6 @@
 FIXED?  PRIO 1-10       TODO
 [ ]      [4]            Fix registration change for same client, or add UX
-[ ]      [6]            Fix unregisterHandler
+[X]      [6]            Fix unregisterHandler
 [ ]      [6]            Fix join
 [ ]      [6]            Fix leave
 [ ]      [5]            Fix format of messages and users, chatrooms...
