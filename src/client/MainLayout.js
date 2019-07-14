@@ -6,7 +6,8 @@ import Avatar from '@material-ui/core/Avatar';
 
 import FaceIcon from '@material-ui/icons/Face';
 
-import BGImage from '../public/background.jpg'
+import BGImage from '../public/strangerthings.jpg'
+import strangerThingsLogo from '../public/stranger_things_logo.png'
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -37,7 +38,16 @@ const Relative = styled.div`
 
 const Sticky = styled.div`
   position: fixed;
+  width: 20%;
+  left: 10%;
 `
+
+const Logo = styled.img`
+  content: url(${strangerThingsLogo});
+  object-fit: cover;
+  width: 100%;
+`
+
 const AvatarWrapper = styled.div`
   cursor: pointer;
   display: flex;
@@ -101,6 +111,7 @@ function MainLayout(props) {
           <Content>
             <Relative>
               <Sticky>
+                <Logo />
                 <AvatarWrapper onClick={props.onUserSelectionClick} >
                   {renderAvatar(props.user)}
                   <UserName> { fullName(props.user) } </UserName>
@@ -111,11 +122,13 @@ function MainLayout(props) {
           </Content>
         </Center>
       </ContentWrapper>
+
       <Fullscreen>
         <BackgroundImage src={BGImage}></BackgroundImage>
-        <Overlay opacity="0.5" background="#EDAF05">
+        <Overlay opacity="0.7" background='#0f0f0f'>
         </Overlay>
       </Fullscreen>
+
     </Fullscreen>
   );
 }

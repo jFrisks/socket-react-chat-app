@@ -6,7 +6,7 @@ import Input from '@material-ui/core/Input';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
-import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, ListItemText, Typography} from '@material-ui/core';
 
 import Overlay from './Overlay';
 
@@ -40,6 +40,10 @@ const InputPanel = styled.div`
     align-self: center;
     padding: 20px;
     border-top: 1px solid #fafafa;
+
+    .message-input {
+        color: white;
+    }
 `
 
 const Scrollable = styled.div`
@@ -48,6 +52,7 @@ const Scrollable = styled.div`
 `
 
 const OutputText = styled.div`
+  box-sizing: border-box;
   white-space: normal !important;
   word-break: break-all !important;
   overflow: initial !important;
@@ -56,14 +61,13 @@ const OutputText = styled.div`
   color: #fafafa !important;
 `
 
-const EventText = styled.div`
-    white-space: normal !important;
-    word-break: break-all !important;
-    overflow: initial !important;
-    width: 100%;
-    height: auto !important;
-    color: lightgray !important;
-    font-size: 14px;
+const EventText = styled(OutputText)`
+    color: silver !important;
+    font-size: 12px;
+`
+
+const EventTextPadded = styled(EventText)`
+    padding-left: 58px;
 `
 
 const Header = styled.div`
@@ -150,28 +154,51 @@ export default class Chatroom extends React.Component {
         this.panel.current.scrollTo(0, this.panel.current.scrollHeight)
     }
 
-    
+    showMessageEvent(chatEvent){
+        return (
+            <React.Fragment>
+                <ListItemAvatar>
+                    <Avatar alt="Username image" src={chatEvent.user.image} />
+                </ListItemAvatar>
+                <ListItemText 
+                    primary={
+                        <EventText>
+                            {chatEvent.user.name} {chatEvent.event}
+                        </EventText>
+                    }
+                    secondary={
+                        <OutputText>
+                            {chatEvent.message}
+                        </OutputText>
+                    }
+                />
+            </React.Fragment>
+        )
+    }
+
+    showChatroomEvent(chatEvent){
+        return (
+            <ListItemText
+                secondary={
+                    <EventTextPadded>
+                        {chatEvent.user.name + ' ' + chatEvent.event}
+                    </EventTextPadded>
+                }
+            />
+        )
+    }
+
+    showEvent(chatEvent){
+        return chatEvent.event ? this.showChatroomEvent(chatEvent) : this.showMessageEvent(chatEvent)
+    }
+
     showAllMessages(chatHistory){
         //FUTURE - could add conditional rendering of different types of messages. Normal message, login message, log out...
         return(
             <List>
                 {chatHistory.map(chatEvent => (
                     <ListItem alignItems="flex-start" key={chatEvent.id}>
-                        <ListItemAvatar>
-                            <Avatar alt="Unknown User Name" src={chatEvent.user.image} />
-                        </ListItemAvatar>
-                        <ListItemText 
-                            primary={
-                                <EventText>
-                                    {chatEvent.user.name} {chatEvent.event}
-                                </EventText>
-                            }
-                            secondary={
-                                <OutputText>
-                                    {chatEvent.message}
-                                </OutputText>
-                            }
-                        />
+                        {this.showEvent(chatEvent)}
                     </ListItem>
                 ))}
             </List>
@@ -196,8 +223,11 @@ export default class Chatroom extends React.Component {
                         <Scrollable ref={this.panel}>
                             {this.showAllMessages(this.state.chatHistory)}
                         </Scrollable>
+                        <Typography color='secondary' align='center' variant='overline' >Someone Is typing...</Typography>
                         <InputPanel>
                         <Input
+                            className='message-input'
+                            color='secondary'
                             id="message-input"
                             placeholder="Enter a message..."
                             onChange={this.onInputChange}

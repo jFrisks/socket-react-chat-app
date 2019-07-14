@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { Dialog, DialogTitle, Avatar} from '@material-ui/core';
+import { Dialog, DialogTitle, Avatar, DialogContent} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -63,12 +63,14 @@ class ChooseAvatarDialog extends React.Component {
         return (
             <Dialog onClose={this.handleClose} open={this.props.open}>
                 <DialogTitle>Choose User</DialogTitle>
+                <DialogContent>
                     {!(this.state.availableUsers)
                         ?   <Loader /> 
                         :   <List>
                                 {this.renderUserListItems()}
                             </List>
                     }
+                </DialogContent>
                 <DialogActions onClick={this.handleClose}>
                     <Button>Close</Button>
                 </DialogActions>

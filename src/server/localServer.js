@@ -1,5 +1,4 @@
 import users from '../config/users'
-import chatHistory from '../config/chatHistory'
 import chatrooms from '../config/chatrooms'
 
 
