@@ -48,11 +48,11 @@ class Root extends React.Component {
     }
 
     handleUserSelectionClickOpen(){
+        if(this.state.selectedChatroom)
+            return
         this.setState({
             userSelectionOpen: true
-        },
-        () => console.log('handledClick. UserSel is open: ', this.state.userSelectionOpen)
-        )
+        }, () => console.log('handledClick. UserSel is open: ', this.state.userSelectionOpen))
     }
   
     handleClose() {
