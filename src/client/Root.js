@@ -186,13 +186,20 @@ class Root extends React.Component {
     showUserSelection() {
         //Users are loading in background since we render but use open state to shof/hide it
         return (
-            <UserSelection
-                onClose={this.handleClose}
-                onSelection={this.handleRegister}
-                open={this.state.userSelectionOpen}
-                selectedUser={this.state.user}
-                getAvailableUsers={this.state.client.getAvailableUsers}
-            />
+            <React.Fragment>
+                {!this.state.userSelectionOpen
+                    ? <React.Fragment />
+                    : (
+                        <UserSelection
+                            onClose={this.handleClose}
+                            onSelection={this.handleRegister}
+                            open
+                            selectedUser={this.state.user}
+                            getAvailableUsers={this.state.client.getAvailableUsers}
+                        />
+                    )
+                }
+            </React.Fragment>
         )
     }
 

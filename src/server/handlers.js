@@ -88,7 +88,7 @@ module.exports = function (client, clientManager, chatroomManager) {
     handleEvent(chatroomName, createEntry)
       .then(function (chatroom) {
         // remove member from chatroom
-        chatroom.removeUser(client.id)
+        chatroom.removeUser(client)
 
         callback(null)
       })

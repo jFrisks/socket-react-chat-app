@@ -14,9 +14,9 @@ FIXED?  PRIO 1-10       TODO
 
 [X]      [ ]            fix messages so user can send - invalid chatroomname
 [ ]      [ ]            Add user change only if outside room
-[ ]      [ ]            Add so users only listenes for event in their room. Remove listeners from other rooms they leave...
+[X]      [ ]            Add so users only listenes for event in their room. Remove listeners from other rooms they leave...
 [ ]      [ ]            Add isJoiningInProccess
-[ ]      [ ]              
+[X]      [ ]            Bug - when clients disc and connect 
 
 
 

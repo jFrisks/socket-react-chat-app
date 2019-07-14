@@ -32,8 +32,11 @@ class ChooseAvatarDialog extends React.Component {
         this.props.getAvailableUsers(setAvailableUserCallback)
     }
 
+    //DEPRICATED 
     isUserSelected = (user) => {
-        if(user === this.props.selectedUser) return true;
+        if(!user || !this.props.selectedUser)
+            return false
+        if(user.name === this.props.selectedUser.name) return true;
         else return false
     }
 
@@ -62,11 +65,9 @@ class ChooseAvatarDialog extends React.Component {
                 <DialogTitle>Choose User</DialogTitle>
                     {!(this.state.availableUsers)
                         ?   <Loader /> 
-                        : (
-                            <List>
+                        :   <List>
                                 {this.renderUserListItems()}
                             </List>
-                        )
                     }
                 <DialogActions onClick={this.handleClose}>
                     <Button>Close</Button>
