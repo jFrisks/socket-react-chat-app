@@ -9,7 +9,6 @@ import Loader from './Loader';
 import UserSelection from './UserSelection';
 
 import socket from './socket';
-import localSocket from './localSocket';
 
 class Root extends React.Component {
     constructor(props, context){

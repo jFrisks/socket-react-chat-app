@@ -23,12 +23,11 @@ FIXED?  PRIO 1-10       TODO
 
 
 BACKLOG - EXTRA FEATURES
-[ ]      [1]            Add isTyping Indicator
-[ ]      [1]            Change to Stranger Things with theme context
+[ ]      [3]            Add isTyping Indicator - Learn more socket
+[X]      [1]            Change to Stranger Things
+[ ]      [1]            Add theme context and replace to theming
 [ ]      [4]            Change to use router
 [ ]      [ ]            Split code for Single Responsiblitiy
-[ ]      [2]            Switch userName to user.id for calls to server
-[ ]      [2]            Can't switch user without leaving room -> redirect or show new message
 
 
 
