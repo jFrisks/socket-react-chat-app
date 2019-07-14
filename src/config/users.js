@@ -1,38 +1,27 @@
-import userIm1 from '../public/users/carol.jpg';
-import userIm2 from '../public/users/daryl.jpg';
-import userIm3 from '../public/users/negan.jpeg';
-import userIm4 from '../public/users/rick.jpg';
-
-export default [
+module.exports = [
   {
     name: 'Rick',
     lastName: 'Grimes',
     statusText: 'I am the leader!',
-    image: userIm4,
+    image: 'users/rick.jpg',
   },
   {
     name: 'Daryl',
     lastName: 'Dixon',
     statusText: 'I like smashing Walkers.',
-    image: userIm2,
+    image: 'users/daryl.jpg',
   },
   {
     name: 'Carol',
     lastName: 'Peletier',
     statusText: 'Don\'t mess with me!',
-    image: userIm1,
+    image: 'users/carol.jpg',
   },
   {
     name: 'Negan',
     lastName: '',
     statusText: 'In a relationship with Lucille.',
-    image: userIm3,
-  },
-  {
-    name: 'NEW',
-    lastName: 'BIE',
-    statusText: 'This is just a mockup user',
-    image: userIm3,
+    image: 'users/negan.jpeg',
   }
 ]
 

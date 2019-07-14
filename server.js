@@ -11,6 +11,6 @@ io.on('connection', (client) => {
 });
 
 ///SET UP
-const port = 8000;
+const port = 3000;
 io.listen(port);
-console.log('listening on port ', port)
+console.log('listening on port (timer tut)', port)

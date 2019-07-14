@@ -5,10 +5,16 @@ FIXED?  PRIO 1-10       TODO
 [X]      [6]            Fix leave
 [X]      [5]            Fix format of messages and users, chatrooms...
 [X]      [6]            Use getAvailable Chatrooms
-[ ]      [5]            Fix onSendMessage in chatroom
-[ ]      [5]            Add real server and client
+[X]      [5]            Fix onSendMessage in chatroom
+[X]      [7]            Add real server and client
+[X]      [5]            Fix server error: no user available - was usern.name needed
+[X]      [5]            Fix keys for messages
 [X]      [4]            Fix registration change for same client, or add UX
-[ ]      [2]            Add isJoiningInProccess
+
+
+[ ]      [ ]            fix messages so user can send - invalid chatroomname
+[ ]      [ ]            Add user change only if outside room
+[ ]      [ ]            Add isJoiningInProccess
 [ ]      [ ]              
 
 
@@ -20,6 +26,8 @@ BACKLOG - EXTRA FEATURES
 [ ]      [1]            Change to Stranger Things with theme context
 [ ]      [4]            Change to use router
 [ ]      [ ]            Split code for Single Responsiblitiy
+[ ]      [2]            Switch userName to user.id for calls to server
+[ ]      [2]            Can't switch user without leaving room -> redirect or show new message
 
 
 

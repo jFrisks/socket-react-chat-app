@@ -1,24 +1,19 @@
-import terminusImage from '../public/chatrooms/terminus.jpg'
-import alexandriaImage from '../public/chatrooms/alexandria.jpg'
-import sanctuaryImage from '../public/chatrooms/sanctuary.jpg'
-import hilltopImage from '../public/chatrooms/hilltop.jpg'
-
-export default [
+module.exports = [
   {
     name: 'Terminus',
-    image: terminusImage
+    image: 'chatrooms/terminus.jpg'
   },
   {
     name: 'Alexandria',
-    image: alexandriaImage
+    image: 'chatrooms/alexandria.jpg'
   },
   {
     name: 'Sanctuary',
-    image: sanctuaryImage
+    image: 'chatrooms/sanctuary.jpg'
   },
   {
     name: 'Hilltop',
-    image: hilltopImage
+    image: 'chatrooms/hilltop.jpg'
   }
 ]
 

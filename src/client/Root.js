@@ -11,145 +11,12 @@ import UserSelection from './UserSelection';
 import socket from './socket';
 import localSocket from './localSocket';
 
-import chatroomImage from '../public/chatrooms/alexandria.jpg';
-import chatroomImage2 from '../public/chatrooms/hilltop.jpg';
-import chatroomImage3 from '../public/chatrooms/sanctuary.jpg';
-import chatroomImage4 from '../public/chatrooms/terminus.jpg';
-import userImage1 from '../public/users/carol.jpg';
-import userImage2 from '../public/users/daryl.jpg';
-import userImage3 from '../public/users/negan.jpeg';
-import userImage4 from '../public/users/rick.jpg';
-
-
-const chatrooms = [
-    {
-        name: "ALEXANDRIA",
-        image: chatroomImage,
-        messages: [
-            {
-                user: "PERSON 1",
-                message: "HEJSAN",
-                img: userImage1,
-                key: 1,
-            },
-            {
-                user: "PERSON 2",
-                message: "BLÄBLÄ",
-                img: userImage2,
-                key: 2,
-            },
-            {
-                user: "PERSON 3",
-                message: "BLÄBLÄ",
-                img: userImage3,
-                key: 3,
-            },
-            {
-                user: "PERSON 1",
-                message: "SKIT PÅ DIG",
-                img: userImage1,
-                key: 4,
-            },
-            {
-                user: "PERSON 2",
-                message: "HIHIHIH",
-                img: userImage2,
-                key: 5,
-            },
-            {
-                user: "PERSON 3",
-                message: "SNYGGT SAGT!",
-                img: userImage3,
-                key: 6,
-            },
-            {
-                user: "PERSON 3",
-                message: "BLÄBLÄ",
-                img: userImage3,
-                key: 7,
-            },
-            {
-                user: "PERSON 1",
-                message: "SKIT PÅ DIG",
-                img: userImage1,
-                key: 8,
-            },
-            {
-                user: "PERSON 2",
-                message: "HIHIHIH",
-                img: userImage2,
-                key: 9,
-            },
-            {
-                user: "PERSON 3",
-                message: "SNYGGT SAGT!",
-                img: userImage3,
-                key: 10,
-            },
-        ],
-    },
-    {
-        name: "ÅLAND",
-        image: chatroomImage2,
-        messages: [
-            {
-                user: "PERSON 1",
-                message: "HEJSAN",
-                img: userImage1,
-                key: 1,
-            },
-            {
-                user: "PERSON 2",
-                message: "BLÄBLÄ",
-                img: userImage2,
-                key: 2,
-            },
-        ],
-    },
-    {
-        name: "SVERIGE",
-        image: chatroomImage3,
-        messages: [
-            {
-                user: "PERSON 1",
-                message: "HEJSAN",
-                img: userImage1,
-                key: 1,
-            },
-            {
-                user: "PERSON 2",
-                message: "BLÄBLÄ",
-                img: userImage2,
-                key: 2,
-            },
-        ],
-    },
-    {
-        name: "USA",
-        image: chatroomImage4,
-        messages: [
-            {
-                user: "PERSON 1",
-                message: "HEJSAN",
-                img: userImage1,
-                key: 1,
-            },
-            {
-                user: "PERSON 2",
-                message: "BLÄBLÄ",
-                img: userImage2,
-                key: 2,
-            },
-        ],
-    }
-]
-
 class Root extends React.Component {
     constructor(props, context){
         super(props);
 
         this.state = {
-            client: localSocket(),
+            client: socket(),
             user: null,
             chatrooms: null,
             selectedChatroom: null,
@@ -174,6 +41,7 @@ class Root extends React.Component {
 
     getChatrooms() {
         const getChatroomsCallback = (err, chatrooms) => {
+            console.log('got chatrooms from server: ', chatrooms)
             this.setState({chatrooms})
         }
         this.state.client.getChatRooms(getChatroomsCallback)
@@ -183,7 +51,7 @@ class Root extends React.Component {
         this.setState({
             userSelectionOpen: true
         },
-        () => console.log('handledClick. UserSel should be: ', this.state.userSelectionOpen)
+        () => console.log('handledClick. UserSel is open: ', this.state.userSelectionOpen)
         )
     }
   
@@ -193,11 +61,12 @@ class Root extends React.Component {
     
     handleOnEnterChatroom = (chatroom) => {
         const onNoUserSelected = () => {
+            console.log('no user is selected', this.state.user)
             this.setState({selectedChatroom: null})
         }
         const onEnterChatroomSuccess = (chatHistory) => {
             //TODO - push to history with router. Now pretty useless i guess since Chatroom should take care of actual chatHistory and displaying it
-            console.log('Pushed history from server to ROOT state chatHistory: ', chatHistory)
+            console.log('Entered Correctly and will show chatHistory: ', chatHistory)
             this.setState({
                 chatHistory,
                 selectedChatroom: chatroom
@@ -244,6 +113,7 @@ class Root extends React.Component {
     }
 
     handleRegister(user) {
+        console.log('Client is handling user Register')
         this.registerUser(user);
     }
 
@@ -254,13 +124,16 @@ class Root extends React.Component {
         const onRegisterCallback = (err, user) => {
             //handle errors otherwise return user. Or, you could also most likely assume user is null or user and do one onRegisterResponse call
             //TODO - remove return statements
-            if (err) return onRegisterResponse(null)
+            if (err) {
+                console.log('got error from server when registering: ', err)
+                return onRegisterResponse(null)
+            }
             else return onRegisterResponse(user)
         }
 
         console.log('calling client to server to handle Register')
         this.setState({userSelectionOpen : true})
-        this.state.client.register(userToRegister, onRegisterCallback)
+        this.state.client.register(userToRegister.name, onRegisterCallback)
     }
 
     handleSendMessage(message, callback) {
