@@ -2,6 +2,10 @@ module.exports = function ({ name, image }) {
   const members = new Map()
   let chatHistory = []
 
+  //TODOS
+  //- Should probably store users since clients can disconnect and get new client ids...
+  //-
+
   function broadcastMessage(message) {
     members.forEach(m => m.emit('message', message))
   }
@@ -19,6 +23,7 @@ module.exports = function ({ name, image }) {
   }
 
   function removeUser(client) {
+    console.log('removed client ' + client.id + 'from chatroom', name)
     members.delete(client.id)
   }
 
