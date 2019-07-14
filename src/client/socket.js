@@ -1,8 +1,10 @@
 const io = require('socket.io-client')
 export default function() {
-    const socket = io.connect('http://localhost:8000')
+    const port = 3001;
+    const socket = io.connect('http://localhost:'+port)
 
     function registerHandler(onMessageReceived) {
+        console.log('sending registerHandler to server')
         socket.on('message', onMessageReceived)
     }
 
@@ -11,8 +13,7 @@ export default function() {
     }
 
     socket.on('error', (err) => {
-        console.log('received socket error:');
-        console.log(err)
+        console.log('received socket error:', err);
     })
 
     function register(name, cb) {
@@ -32,6 +33,7 @@ export default function() {
     }
 
     function getChatRooms(cb) {
+        console.log('getting chatrooms')
         socket.emit('chatrooms', null, cb)
     }
 

@@ -1,43 +1,41 @@
-module.exports = ({name, image}) => {
-    const clientMembers = new Map()
-    let chathistory = []
+module.exports = function ({ name, image }) {
+  const members = new Map()
+  let chatHistory = []
 
-    function broadCastMessage(messageEntry) {
-        clientMembers.forEach(c => {
-            c.emit('message', messageEntry)
-        });
-    }
+  function broadcastMessage(message) {
+    members.forEach(m => m.emit('message', message))
+  }
 
-    function addEntry(entry) {
-        chathistory = chathistory.concat(entry)
-    }
+  function addEntry(entry) {
+    chatHistory = chatHistory.concat(entry)
+  }
 
-    function getChatHistory() {
-        return chathistory.slice()
-    }
+  function getChatHistory() {
+    return chatHistory.slice()
+  }
 
-    function addUser(client) {
-        clientMembers.set(client.id, client)
-    }
+  function addUser(client) {
+    members.set(client.id, client)
+  }
 
-    function removeUser(client) {
-        clientMembers.delete(client.id)
-    }
+  function removeUser(client) {
+    members.delete(client.id)
+  }
 
-    function serialize() {
-        return {
-            name,
-            image,
-            numMembers: clientMembers.size,
-        }
-    }
-
+  function serialize() {
     return {
-        broadCastMessage,
-        addEntry,
-        getChatHistory,
-        addUser,
-        removeUser,
-        serialize,
+      name,
+      image,
+      numMembers: members.size
     }
+  }
+
+  return {
+    broadcastMessage,
+    addEntry,
+    getChatHistory,
+    addUser,
+    removeUser,
+    serialize
+  }
 }

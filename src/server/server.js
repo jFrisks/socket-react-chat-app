@@ -1,6 +1,5 @@
-const server = require('http').createServer();
-const io = require('socket.io')(server);
-const port = 8000;
+const server = require('http').createServer()
+const io = require('socket.io')(server)
 
 const ClientManager = require('./ClientManager')
 const ChatroomManager = require('./ChatroomManager')
@@ -9,43 +8,46 @@ const makeHandlers = require('./handlers')
 const clientManager = ClientManager()
 const chatroomManager = ChatroomManager()
 
-io.on('connection', (client) => {
-    console.log('client connected as ', client.id)
-    
-    const {
-        handleRegister,
-        handleDisconnect,
-        handleGetAvailableUsers,
-        handleGetChatrooms,
-        handleJoin,
-        handleLeave,
-        handleMessage,
-    } = makeHandlers(client, clientManager, chatroomManager)
+const port = 3001;
 
-    client.on('register', handleRegister)
+io.on('connection', function (client) {
+  const {
+    handleRegister,
+    handleJoin,
+    handleLeave,
+    handleMessage,
+    handleGetChatrooms,
+    handleGetAvailableUsers,
+    handleDisconnect
+  } = makeHandlers(client, clientManager, chatroomManager)
 
-    client.on('join', handleJoin)
+  console.log('client connected...', client.id)
+  clientManager.addClient(client)
 
-    client.on('leave', handleLeave)
+  client.on('register', handleRegister)
 
-    client.on('message', handleMessage)
+  client.on('join', handleJoin)
 
-    client.on('chatrooms', handleGetChatrooms)
+  client.on('leave', handleLeave)
 
-    client.on('availableUsers', handleGetAvailableUsers)
+  client.on('message', handleMessage)
 
-    client.on('disconnect', () => {
-        console.log('client disconnect...', client.id);
-        handleDisconnect();
-    })
+  client.on('chatrooms', handleGetChatrooms)
 
-    client.on('error', (err) => {
-        console.log('received error from client: ', client.id)
-        console.log(err)
-    })
+  client.on('availableUsers', handleGetAvailableUsers)
+
+  client.on('disconnect', function () {
+    console.log('client disconnect...', client.id)
+    handleDisconnect()
+  })
+
+  client.on('error', function (err) {
+    console.log('received error from client:', client.id)
+    console.log(err)
+  })
 })
 
-server.listen(port, (err) => {
-    if(err) throw err
-    console.log('listening on port ', port)
+server.listen(port, function (err) {
+  if (err) throw err
+  console.log('listening on port ' + port)
 })

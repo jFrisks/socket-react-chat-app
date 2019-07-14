@@ -59,6 +59,16 @@ const OutputText = styled.div`
   color: #fafafa !important;
 `
 
+const EventText = styled.div`
+    white-space: normal !important;
+    word-break: break-all !important;
+    overflow: initial !important;
+    width: 100%;
+    height: auto !important;
+    color: lightgray !important;
+    font-size: 14px;
+`
+
 const Header = styled.div`
     display: flex;
     align-items: center;
@@ -126,6 +136,7 @@ export default class Chatroom extends React.Component {
         this.props.onSendMessage(this.state.input, serverGotMessageCallback)
 
         //TODO - TEMPORARY BELOW - adding message to chat 
+        /*
         const message = this.state.input;
         const newMessage = {
             user: this.props.user.name,
@@ -133,6 +144,7 @@ export default class Chatroom extends React.Component {
             event: 'TEMP onSendMessage message'
         }
         this.updateChatHistory(newMessage)
+        */
     }
 
     onMessageReceived(messageEntry) {
@@ -156,15 +168,15 @@ export default class Chatroom extends React.Component {
         return(
             <List>
                 {chatHistory.map(chatEvent => (
-                    <ListItem alignItems="flex-start" key={chatEvent.user+chatEvent.message+chatEvent.event}>
+                    <ListItem alignItems="flex-start" key={chatEvent.id}>
                         <ListItemAvatar>
                             <Avatar alt="Unknown User Name" src={chatEvent.user.image} />
                         </ListItemAvatar>
                         <ListItemText 
                             primary={
-                                <OutputText>
+                                <EventText>
                                     {chatEvent.user.name} {chatEvent.event}
-                                </OutputText>
+                                </EventText>
                             }
                             secondary={
                                 <OutputText>

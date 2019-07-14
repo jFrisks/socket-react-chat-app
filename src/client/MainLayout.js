@@ -73,7 +73,7 @@ const UserName = styled.p`
 
 
 function fullName(user) {
-  console.log('trying to write fullname of user with image: ', user)
+  //console.log('trying to write fullname of user with image: ', user)
   return user ? `${user.name} ${user.lastName}` : 'Who are you?'
 }
 
