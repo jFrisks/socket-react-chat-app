@@ -1,5 +1,6 @@
+let lastEntryId = 0;
+
 function makeHandleEvent(client, clientManager, chatroomManager) {
-  let lastEntryId = 0;
 
   function getNextEntryId() {
     lastEntryId += 1
@@ -95,6 +96,7 @@ module.exports = function (client, clientManager, chatroomManager) {
   }
 
   function handleMessage({ chatroomName, message } = {}, callback) {
+    console.log('Server handleMessage sees chatroomName: ' + chatroomName + ' and message: ' + message)
     const createEntry = () => ({ message })
 
     handleEvent(chatroomName, createEntry)

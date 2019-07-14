@@ -137,6 +137,7 @@ class Root extends React.Component {
     }
 
     handleSendMessage(message, callback) {
+        console.log(`locally handling message ${message} in chatroom ${this.state.selectedChatroom.name}`)
         this.state.client.message(
             this.state.selectedChatroom.name,
             message,
