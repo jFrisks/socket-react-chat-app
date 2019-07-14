@@ -8,15 +8,15 @@ FIXED?  PRIO 1-10       TODO
 [X]      [5]            Fix onSendMessage in chatroom
 [X]      [7]            Add real server and client
 [X]      [5]            Fix server error: no user available - was usern.name needed
+
 [X]      [5]            Fix keys for messages
 [X]      [4]            Fix registration change for same client, or add UX
-
-
-[X]      [ ]            fix messages so user can send - invalid chatroomname
-[ ]      [ ]            Add user change only if outside room
+[X]      [ ]            fix messages so user can send - inva id chatroomname
 [X]      [ ]            Add so users only listenes for event in their room. Remove listeners from other rooms they leave...
-[ ]      [ ]            Add isJoiningInProccess
 [X]      [ ]            Bug - when clients disc and connect 
+[X]      [ ]            Add user change only if outside room
+
+
 
 
 
