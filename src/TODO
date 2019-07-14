@@ -12,8 +12,9 @@ FIXED?  PRIO 1-10       TODO
 [X]      [4]            Fix registration change for same client, or add UX
 
 
-[ ]      [ ]            fix messages so user can send - invalid chatroomname
+[X]      [ ]            fix messages so user can send - invalid chatroomname
 [ ]      [ ]            Add user change only if outside room
+[ ]      [ ]            Add so users only listenes for event in their room. Remove listeners from other rooms they leave...
 [ ]      [ ]            Add isJoiningInProccess
 [ ]      [ ]              
 
@@ -36,3 +37,6 @@ TO LEARN                |
 [ ]      [ ]            Error handling
 [ ]      [ ]            Higher Order Component
 [ ]      [ ]            Add theme context so you learn that
+[ ]      [ ]            Learn webpack and imports
+[ ]      [ ]            Learn node!
+[ ]      [ ]            Machine Learning course

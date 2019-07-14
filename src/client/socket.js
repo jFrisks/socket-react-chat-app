@@ -20,16 +20,16 @@ export default function() {
         socket.emit('register', name, cb)
     }
 
-    function join(chatRoomName, cb) {
-        socket.emit('join', chatRoomName, cb)
+    function join(chatroomName, cb) {
+        socket.emit('join', chatroomName, cb)
     }
 
-    function leave(chatRoomName, cb) {
-        socket.emit('leave', chatRoomName, cb)
+    function leave(chatroomName, cb) {
+        socket.emit('leave', chatroomName, cb)
     }
 
-    function message(chatRoomName, msg, cb){
-        socket.emit('message', {chatRoomName, message: msg}, cb)
+    function message(chatroomName, msg, cb){
+        socket.emit('message', {chatroomName, message: msg}, cb)
     }
 
     function getChatRooms(cb) {

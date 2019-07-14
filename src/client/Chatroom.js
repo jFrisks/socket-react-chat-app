@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components'
 
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
@@ -10,8 +9,6 @@ import SendIcon from '@material-ui/icons/Send';
 import { List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core';
 
 import Overlay from './Overlay';
-
-import userImage1 from '../public/users/carol.jpg';
 
 const ChatWindow = styled.div`
     background-image: url(${props => props.bgImage});
@@ -124,6 +121,8 @@ export default class Chatroom extends React.Component {
     }
 
     onSendMessage() {
+        console.log('message to send is:', this.state.input)
+
         if (!this.state.input)
             return
         const serverGotMessageCallback = (err) => {
@@ -134,17 +133,6 @@ export default class Chatroom extends React.Component {
             })
         }
         this.props.onSendMessage(this.state.input, serverGotMessageCallback)
-
-        //TODO - TEMPORARY BELOW - adding message to chat 
-        /*
-        const message = this.state.input;
-        const newMessage = {
-            user: this.props.user.name,
-            message,
-            event: 'TEMP onSendMessage message'
-        }
-        this.updateChatHistory(newMessage)
-        */
     }
 
     onMessageReceived(messageEntry) {
