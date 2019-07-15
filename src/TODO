@@ -16,6 +16,8 @@ FIXED?  PRIO 1-10       TODO
 [X]      [ ]            Bug - when clients disc and connect 
 [X]      [ ]            Add user change only if outside room
 
+[X]      [1]            Change to Stranger Things
+
 
 
 
@@ -24,8 +26,14 @@ FIXED?  PRIO 1-10       TODO
 
 BACKLOG - EXTRA FEATURES
 [ ]      [3]            Add isTyping Indicator - Learn more socket
-[X]      [1]            Change to Stranger Things
+[X]      [3]                write handleIsTyping    
+[X]      [3]                istyping - create frontend function and try it
+[X]      [3]                connect everything
+[X]      [3]                Fix so it only sends one isTyping from client if you smash typebutton
+[X]      [3]                Fix so it calls someisTyping one time for an interval.
+[ ]      [3]                istyping - fix not emitting broadcast to users that did it, if only them
 [ ]      [1]            Add theme context and replace to theming
+[ ]      [1]                Add mobile friendly for font, userSel and theme
 [ ]      [4]            Change to use router
 [ ]      [ ]            Split code for Single Responsiblitiy
 

@@ -52,11 +52,14 @@ function makeHandleEvent(client, clientManager, chatroomManager) {
       })
   }
 
-  return handleEvent
+  return {
+    handleEvent,
+    ensureValidChatroomAndUserSelected
+  }
 }
 
 module.exports = function (client, clientManager, chatroomManager) {
-  const handleEvent = makeHandleEvent(client, clientManager, chatroomManager)
+  const {handleEvent, ensureValidChatroomAndUserSelected } = makeHandleEvent(client, clientManager, chatroomManager)
 
   function handleRegister(userName, callback) {
     if (!clientManager.isUserAvailable(userName))
@@ -104,6 +107,22 @@ module.exports = function (client, clientManager, chatroomManager) {
       .catch(callback)
   }
 
+  function handleIsTyping({chatroomName, isTyping}, callback) {
+    ensureValidChatroomAndUserSelected(chatroomName)
+      .then(({chatroom, user}) => {
+        console.log(`handling ${user.name} istyping ${isTyping} in ${chatroomName}`)
+        //add user as typing or not typing
+        if(isTyping)
+          chatroom.addTypingUser(client)
+        else
+          chatroom.removeTypingUser(client)
+        //broadcast typing from chatroom
+        chatroom.broadcastSomeoneIsTyping()
+        callback(null)
+      })
+      .catch(callback)
+  }
+
   function handleGetChatrooms(_, callback) {
     return callback(null, chatroomManager.serializeChatrooms())
   }
@@ -124,6 +143,7 @@ module.exports = function (client, clientManager, chatroomManager) {
     handleJoin,
     handleLeave,
     handleMessage,
+    handleIsTyping,
     handleGetChatrooms,
     handleGetAvailableUsers,
     handleDisconnect

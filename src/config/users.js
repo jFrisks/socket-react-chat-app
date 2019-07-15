@@ -27,7 +27,7 @@ module.exports = [
     name: 'Lucas',
     lastName: 'Sinclair',
     statusText: '',
-    image: 'users/dustin.jpeg',
+    image: 'users/lucas.jpg',
   },
   {
     name: 'Max',
