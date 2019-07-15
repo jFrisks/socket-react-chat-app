@@ -31,6 +31,7 @@ class Root extends React.Component {
         this.onEnterChatroom = this.onEnterChatroom.bind(this);
         this.onLeaveChatroom = this.onLeaveChatroom.bind(this);
         this.getChatrooms = this.getChatrooms.bind(this);
+        this.handleIsTyping = this.handleIsTyping.bind(this);
     }
 
     componentDidMount() {
@@ -97,7 +98,6 @@ class Root extends React.Component {
             })
             console.log('Left chatroom: ', lastChatroom);
         }
-
         this.onLeaveChatroom(this.state.selectedChatroom, onLeaveSuccess)        
     }
 
@@ -124,7 +124,7 @@ class Root extends React.Component {
             //handle errors otherwise return user. Or, you could also most likely assume user is null or user and do one onRegisterResponse call
             //TODO - remove return statements
             if (err) {
-                console.log('got error from server when registering: ', err)
+                console.error('got error from server when registering: ', err)
                 return onRegisterResponse(null)
             }
             else return onRegisterResponse(user)
@@ -144,6 +144,15 @@ class Root extends React.Component {
         );
     }
 
+    handleIsTyping(isTyping){
+        const isTypingCallback = (err) => {
+            if(err) {
+                console.error('got this error from server when sending user is typing: ', err)
+            }
+        }
+        this.state.client.isTyping(this.state.selectedChatroom.name, isTyping, isTypingCallback)
+    }
+
     isUserAndChatroomSelected() {
         const {selectedChatroom, user} = this.state;
         if(selectedChatroom && user) 
@@ -161,6 +170,7 @@ class Root extends React.Component {
                 registerHandler={this.state.client.registerHandler}
                 unregisterHandler={this.state.client.unregisterHandler}
                 onSendMessage={this.handleSendMessage}
+                onIsTyping={this.handleIsTyping}
                 onLeave={this.handleOnLeaveChatroom}
             />
         )

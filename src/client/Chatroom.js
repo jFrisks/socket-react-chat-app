@@ -8,10 +8,12 @@ import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import { List, ListItem, ListItemAvatar, ListItemText, Typography} from '@material-ui/core';
 
-import Overlay from './Overlay';
+import Overlay from './Overlay'
 
 const ChatWindow = styled.div`
+    background-color: rgb(255, 255, 255, 0.1);
     background-image: url(${props => props.bgImage});
+    border-radius: 20px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -85,6 +87,7 @@ const Title = styled.p`
     font-size: 24px;
 `
 
+var isTypingTimeout = undefined;
 
 export default class Chatroom extends React.Component {
 
@@ -98,16 +101,20 @@ export default class Chatroom extends React.Component {
         this.state = {
             input: '',
             chatHistory,
+            someoneIsTypying: false,
+            isTyping: false,
         }
 
         this.onSendMessage = this.onSendMessage.bind(this);
         this.updateChatHistory = this.updateChatHistory.bind(this);
         this.onMessageReceived = this.onMessageReceived.bind(this);
+        this.onSomeoneIsTypingReceived = this.onSomeoneIsTypingReceived.bind(this);
+        this.onIsTyping = this.onIsTyping.bind(this);
     }
 
     componentDidMount(){
         //Handle register - add user, show log in message and so on
-        this.props.registerHandler(this.onMessageReceived)
+        this.props.registerHandler(this.onMessageReceived, this.onSomeoneIsTypingReceived)
         this.scrollToChatBottom();
     }
     componentDidUpdate(){
@@ -119,9 +126,39 @@ export default class Chatroom extends React.Component {
     }
 
     onInputChange = (e) => {
+        this.onIsTyping()
         this.setState({
             input: e.target.value,
         });
+    }
+
+    onLeave = () => {
+        clearTimeout(isTypingTimeout);
+        this.setIsNotTyping()
+        this.props.onLeave()
+    }
+
+    setIsNotTyping = (chatroomName) => {
+        this.setState({isTyping: false})
+        this.props.onIsTyping(chatroomName, false)
+    }
+
+    onIsTyping() {
+        const {onIsTyping} = this.props;
+        const interval = 1000;
+        const chatroomName = this.props.chatroom.name
+
+        if(!this.state.isTyping){
+            this.setState({isTyping: true})
+            isTypingTimeout = setTimeout(() => this.setIsNotTyping(chatroomName), interval)
+            onIsTyping(chatroomName, true)
+        }
+        else {
+            //reset the timeout of typing
+            console.log('type bounce')
+            clearTimeout(isTypingTimeout)
+            isTypingTimeout = setTimeout(() => this.setIsNotTyping(chatroomName), interval)
+        }
     }
 
     onSendMessage() {
@@ -142,6 +179,14 @@ export default class Chatroom extends React.Component {
     onMessageReceived(messageEntry) {
         console.log('onMessagedReceived: ', messageEntry);
         this.updateChatHistory(messageEntry);
+    }
+
+    onSomeoneIsTypingReceived(isTyping) {
+        //const message = 'received from server that ' + (!isTyping ? 'no one' : 'someone') + ' is typing'
+        //console.log(message)
+        this.setState({
+            someoneIsTypying: isTyping
+        })
     }
 
     updateChatHistory(messageEntry) {
@@ -192,6 +237,13 @@ export default class Chatroom extends React.Component {
         return chatEvent.event ? this.showChatroomEvent(chatEvent) : this.showMessageEvent(chatEvent)
     }
 
+    showIsTyping() {
+        if(this.state.someoneIsTypying)
+            return <Typography color='secondary' align='center' variant='overline' >Someone Is typing...</Typography>
+        else
+            return 
+    }
+
     showAllMessages(chatHistory){
         //FUTURE - could add conditional rendering of different types of messages. Normal message, login message, log out...
         return(
@@ -209,13 +261,12 @@ export default class Chatroom extends React.Component {
 
     render() {
         return(
-            <div style={{ height: '100%' }}>
                 <ChatWindow bgImage={this.props.chatroom.image}>
                     <Header>
                         <Title>
                             {this.props.chatroom.name}
                         </Title>
-                        <Button variant="contained" color="secondary" onClick={this.props.onLeave} >
+                        <Button variant="contained" color="secondary" onClick={this.onLeave} >
                             Close
                         </Button>
                     </Header>
@@ -223,7 +274,7 @@ export default class Chatroom extends React.Component {
                         <Scrollable ref={this.panel}>
                             {this.showAllMessages(this.state.chatHistory)}
                         </Scrollable>
-                        <Typography color='secondary' align='center' variant='overline' >Someone Is typing...</Typography>
+                        {this.showIsTyping()}
                         <InputPanel>
                         <Input
                             className='message-input'
@@ -244,9 +295,8 @@ export default class Chatroom extends React.Component {
                         </Fab>
                         </InputPanel>
                     </ChatPanel>
-                    <Overlay opacity={0.6} background="#111111" />
+                    <Overlay opacity='0.5' background='black'/>
                 </ChatWindow>
-            </div>
         );
     }
 }

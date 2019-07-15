@@ -3,13 +3,15 @@ export default function() {
     const port = 3001;
     const socket = io.connect('http://localhost:'+port)
 
-    function registerHandler(onMessageReceived) {
-        console.log('sending registerHandler to server')
+    function registerHandler(onMessageReceived, onSomeoneIsTypingReceived) {
+        console.log('adding chatroomslisteners from server')
         socket.on('message', onMessageReceived)
+        socket.on('someoneIsTyping', onSomeoneIsTypingReceived)
     }
 
     function unregisterHandler() {
         socket.off('message')
+        socket.off('someoneIsTyping')
     }
 
     socket.on('error', (err) => {
@@ -32,6 +34,10 @@ export default function() {
         socket.emit('message', {chatroomName, message: msg}, cb)
     }
 
+    function isTyping(chatroomName, isTyping, cb){
+        socket.emit('isTyping', {chatroomName, isTyping}, cb)
+    }
+
     function getChatRooms(cb) {
         console.log('getting chatrooms')
         socket.emit('chatrooms', null, cb)
@@ -46,6 +52,7 @@ export default function() {
         join,
         leave,
         message,
+        isTyping,
         getChatRooms,
         getAvailableUsers,
         registerHandler,
