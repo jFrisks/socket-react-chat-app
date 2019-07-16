@@ -102,6 +102,7 @@ export default class Chatroom extends React.Component {
         this.state = {
             input: '',
             chatHistory,
+            typingUsers: [],
             someoneIsTypying: false,
             isTyping: false,
         }
@@ -182,11 +183,11 @@ export default class Chatroom extends React.Component {
         this.updateChatHistory(messageEntry);
     }
 
-    onSomeoneIsTypingReceived(isTyping) {
+    onSomeoneIsTypingReceived(typingUsers) {
         //const message = 'received from server that ' + (!isTyping ? 'no one' : 'someone') + ' is typing'
-        //console.log(message)
+        console.log('theese many typing: ', typingUsers.length)
         this.setState({
-            someoneIsTypying: isTyping
+            typingUsers
         })
     }
 
@@ -229,8 +230,17 @@ export default class Chatroom extends React.Component {
     }
 
     showIsTyping() {
-        if(this.state.someoneIsTypying)
-            return <Typography color='secondary' align='center' variant='overline' >Someone Is typing...</Typography>
+        let typingUsers = this.state.typingUsers.slice();
+        if(typingUsers.length > 0){
+            let typingUsersString = typingUsers.length < 4
+                ? this.state.typingUsers.map(user => user.name).join(", ")
+                : 'more than three'
+            return (
+                <Typography color='secondary' align='center' variant='overline' >
+                    {typingUsersString} is typing...
+                </Typography>
+            );
+        }
         else
             return 
     }
