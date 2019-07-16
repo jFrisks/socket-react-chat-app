@@ -144,7 +144,7 @@ class Root extends React.Component {
         );
     }
 
-    handleIsTyping(isTyping){
+    handleIsTyping(chatroomName, isTyping){
         const isTypingCallback = (err) => {
             if(err) {
                 console.error('got this error from server when sending user is typing: ', err)

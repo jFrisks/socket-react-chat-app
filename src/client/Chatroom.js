@@ -52,20 +52,21 @@ const Scrollable = styled.div`
     height: 100%;
     overflow: auto;
 `
-
 const OutputText = styled.div`
-  box-sizing: border-box;
-  white-space: normal !important;
-  word-break: break-all !important;
-  overflow: initial !important;
-  width: 100%;
-  height: auto !important;
-  color: #fafafa !important;
+        box-sizing: border-box;
+        white-space: normal !important;
+        word-break: break-all !important;
+        overflow: initial !important;
+        width: 100%;
+        height: auto !important;
+        color: #fafafa !important;
+        /*margin-top: 5px;*/
 `
 
 const EventText = styled(OutputText)`
-    color: silver !important;
-    font-size: 12px;
+        /*margin-top: 0px;*/
+        color: silver !important;
+        font-size: 12px;
 `
 
 const EventTextPadded = styled(EventText)`
@@ -125,17 +126,17 @@ export default class Chatroom extends React.Component {
         this.props.unregisterHandler()
     }
 
+    onLeave = () => {
+        clearTimeout(isTypingTimeout);
+        this.setIsNotTyping()
+        this.props.onLeave()
+    }
+
     onInputChange = (e) => {
         this.onIsTyping()
         this.setState({
             input: e.target.value,
         });
-    }
-
-    onLeave = () => {
-        clearTimeout(isTypingTimeout);
-        this.setIsNotTyping()
-        this.props.onLeave()
     }
 
     setIsNotTyping = (chatroomName) => {
@@ -205,17 +206,10 @@ export default class Chatroom extends React.Component {
                 <ListItemAvatar>
                     <Avatar alt="Username image" src={chatEvent.user.image} />
                 </ListItemAvatar>
-                <ListItemText 
-                    primary={
-                        <EventText>
-                            {chatEvent.user.name} {chatEvent.event}
-                        </EventText>
-                    }
-                    secondary={
-                        <OutputText>
-                            {chatEvent.message}
-                        </OutputText>
-                    }
+                <ListItemText
+                    disableTypography
+                    primary={<EventText>{chatEvent.user.name} {chatEvent.event}</EventText>}
+                    secondary={<OutputText>{chatEvent.message}</OutputText>}
                 />
             </React.Fragment>
         )
@@ -224,11 +218,8 @@ export default class Chatroom extends React.Component {
     showChatroomEvent(chatEvent){
         return (
             <ListItemText
-                secondary={
-                    <EventTextPadded>
-                        {chatEvent.user.name + ' ' + chatEvent.event}
-                    </EventTextPadded>
-                }
+                disableTypography
+                secondary={<EventTextPadded>{chatEvent.user.name} {chatEvent.event}</EventTextPadded>}
             />
         )
     }
@@ -249,15 +240,13 @@ export default class Chatroom extends React.Component {
         return(
             <List>
                 {chatHistory.map(chatEvent => (
-                    <ListItem alignItems="flex-start" key={chatEvent.id}>
+                    <ListItem alignItems="flex-start" key={chatEvent.id} >
                         {this.showEvent(chatEvent)}
                     </ListItem>
                 ))}
             </List>
         );
-        
     }
-
 
     render() {
         return(
