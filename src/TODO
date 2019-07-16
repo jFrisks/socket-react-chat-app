@@ -25,7 +25,7 @@ FIXED?  PRIO 1-10       TODO
 
 
 BACKLOG - EXTRA FEATURES
-[ ]      [3]            Add isTyping Indicator - Learn more socket
+[X]      [3]            Add isTyping Indicator - Learn more socket
 [X]      [3]                write handleIsTyping    
 [X]      [3]                istyping - create frontend function and try it
 [X]      [3]                connect everything
@@ -37,13 +37,15 @@ BACKLOG - EXTRA FEATURES
 [ ]      [4]            Change to use router
 [ ]      [ ]            Split code for Single Responsiblitiy
 
-
-
 TO LEARN                |
+[ ]      [ ]            Add theme context so you learn that
 [ ]      [ ]            Router
 [ ]      [ ]            Error handling
 [ ]      [ ]            Higher Order Component
-[ ]      [ ]            Add theme context so you learn that
+[ ]      [ ]            Do portfolio website - first draft
+[ ]      [ ]                Use react router
+[ ]      [ ]                Hook up with gatsby and learn graphQL and Gatsby.js
+[ ]      [ ]            Bind all server data to i.e. firebase
 [ ]      [ ]            Learn webpack and imports
 [ ]      [ ]            Learn node!
 [ ]      [ ]            Machine Learning course

@@ -10,10 +10,12 @@ import { List, ListItem, ListItemAvatar, ListItemText, Typography} from '@materi
 
 import Overlay from './Overlay'
 
+const borderRadius = '20px'
+
 const ChatWindow = styled.div`
     background-color: rgb(255, 255, 255, 0.1);
     background-image: url(${props => props.bgImage});
-    border-radius: 20px;
+    border-radius: ${borderRadius};
     background-size: cover;
     background-position: center;
     position: relative;
@@ -53,20 +55,24 @@ const Scrollable = styled.div`
     overflow: auto;
 `
 const OutputText = styled.div`
-        box-sizing: border-box;
-        white-space: normal !important;
-        word-break: break-all !important;
-        overflow: initial !important;
-        width: 100%;
-        height: auto !important;
-        color: #fafafa !important;
-        /*margin-top: 5px;*/
+    box-sizing: border-box;
+    white-space: normal !important;
+    word-break: break-all !important;
+    overflow: initial !important;
+    width: 100%;
+    height: auto !important;
+    color: #fafafa !important;
+    /*margin-top: 5px;*/
 `
 
 const EventText = styled(OutputText)`
-        /*margin-top: 0px;*/
-        color: silver !important;
-        font-size: 12px;
+    /*margin-top: 0px;*/
+    color: silver !important;
+    font-size: 12px;
+`
+
+const OverlayRound = styled(Overlay)`
+    border-radius: ${borderRadius};
 `
 
 const EventTextPadded = styled(EventText)`
@@ -294,7 +300,7 @@ export default class Chatroom extends React.Component {
                         </Fab>
                         </InputPanel>
                     </ChatPanel>
-                    <Overlay opacity='0.5' background='black'/>
+                    <OverlayRound opacity='0.5' background='black'/>
                 </ChatWindow>
         );
     }

@@ -1,7 +1,9 @@
 const io = require('socket.io-client')
 export default function() {
+    const serverLANURL = '192.168.1.121:'
+    const serverLocalURL = 'http://localhost:'
     const port = 3001;
-    const socket = io.connect('http://localhost:'+port)
+    const socket = io.connect(serverLANURL+port)
 
     function registerHandler(onMessageReceived, onSomeoneIsTypingReceived) {
         console.log('adding chatroomslisteners from server')
