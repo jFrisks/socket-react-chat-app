@@ -117,7 +117,7 @@ module.exports = function (client, clientManager, chatroomManager) {
         else
           chatroom.removeTypingUser(client)
         //broadcast typing from chatroom
-        chatroom.broadcastSomeoneIsTyping()
+        chatroom.broadcastSomeoneIsTyping(clientManager)
         callback(null)
       })
       .catch(callback)

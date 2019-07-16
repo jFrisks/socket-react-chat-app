@@ -21,19 +21,15 @@ module.exports = function ({ name, image }) {
     whoIsTyping.delete(client.id)
   }
 
-  function broadcastSomeoneIsTyping() {
+  function broadcastSomeoneIsTyping(clientManager) {
     //TODO - can this be overflodded?
-    const isTyping = !(whoIsTyping.size === 0)
-    members.forEach(m => m.emit('someoneIsTyping', isTyping))
-    
-    /*
-    const interval = 1000;
-    isTypingInterval = setInterval(() => {
-      const isTyping = !(whoIsTyping.size === 0)
-      if(!isTyping) clearInterval(isTypingInterval)
-      members.forEach(m => m.emit('someoneIsTyping', isTyping))
-    }, interval);
-    */
+    //const isTyping = !(whoIsTyping.size === 0)
+    //members.forEach(m => m.emit('someoneIsTyping', isTyping))
+    const typingClientIDs = Array.from(whoIsTyping.keys());
+    const typingUsers = typingClientIDs.map(clientID => clientManager.getUserByClientId(clientID))
+    //console.log('server - these users are typing', typingUsers.size)
+    members.forEach(m => m.emit('someoneIsTyping', typingUsers))
+
   }
 
   function addEntry(entry) {
