@@ -154,8 +154,7 @@ class Root extends React.Component {
     }
 
     isUserAndChatroomSelected() {
-        const {selectedChatroom, user} = this.state;
-        if(selectedChatroom && user) 
+        if(this.state.selectedChatroom && this.state.user) 
             return true;
         else
             return false;
