@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Fullscreen from './Fullscreen';
 import Overlay from './Overlay';
-import Avatar from '@material-ui/core/Avatar';
 
+import Grid from '@material-ui/core/Grid'
+import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/Face';
 
 import BGImage from '../public/strangerthings.jpg'
