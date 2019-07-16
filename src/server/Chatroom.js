@@ -23,7 +23,6 @@ module.exports = function ({ name, image }) {
 
   function broadcastSomeoneIsTyping() {
     //TODO - can this be overflodded?
-    console.log('broadcasting istyping')
     const isTyping = !(whoIsTyping.size === 0)
     members.forEach(m => m.emit('someoneIsTyping', isTyping))
     

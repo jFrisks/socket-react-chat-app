@@ -35,6 +35,7 @@ export default function() {
     }
 
     function isTyping(chatroomName, isTyping, cb){
+        console.log(`sending is typing to server: ${isTyping} from ${chatroomName}`)
         socket.emit('isTyping', {chatroomName, isTyping}, cb)
     }
 
