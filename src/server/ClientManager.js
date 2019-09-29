@@ -1,7 +1,7 @@
 const userTemplates = require('../config/users')
 
 module.exports = function () {
-  // mapping of all connected clients
+    // mapping of all connected clients
   const clients = new Map()
 
   function addClient(client) {
