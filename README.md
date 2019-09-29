@@ -6,3 +6,5 @@ Based on a tutorial by [justadudewhohacks](https://github.com/justadudewhohacks)
 Learning the basic with an overall good architecture.
 I used the arcitecture and function-purpose and tried to write everything myself.
 Will be implementing react-component part myself with help from the source-files.
+
+Learning to deploy server and client side as separate apps within same repo.
