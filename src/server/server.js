@@ -7,7 +7,6 @@ const makeHandlers = require('./handlers')
 
 const clientManager = ClientManager()
 const chatroomManager = ChatroomManager()
-
 const port = 3001;
 
 io.on('connection', function (client) {
