@@ -18,6 +18,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
+    "publishHerokuServer": "git subtree push --prefix src/server socket-chat-app-server-jfrisks master || true",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
