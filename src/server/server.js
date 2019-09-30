@@ -1,5 +1,5 @@
 const server = require('http').createServer((req, res) => {
-  res.writeHead(200);
+  res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end('Connected to http server')
 })
 const io = require('socket.io')(server)
@@ -10,7 +10,7 @@ const makeHandlers = require('./handlers')
 
 const clientManager = ClientManager()
 const chatroomManager = ChatroomManager()
-const port = process.env.PORT || 3001;
+const port = 3001;
 
 io.on('connection', function (client) {
   const {
