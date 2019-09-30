@@ -1,10 +1,10 @@
 const io = require('socket.io-client')
 export default function() {
-    const serverLANURL = window.location.origin.slice(0, - window.location.port.length)
-    const serverLocalURL = 'http://localhost:'
     const port = 3001;
-    const socket = io.connect(serverLocalURL+port)
-    console.log(serverLANURL)
+    const serverLocalURL = 'http://localhost:'+port
+    const serverURL = 'https://socket-chat-app-server-jfrisks.herokuapp.com/'
+    const socket = io.connect(serverURL)
+    console.log(serverURL)
 
     function registerHandler(onMessageReceived, onSomeoneIsTypingReceived) {
         console.log('adding chatroomslisteners from server')

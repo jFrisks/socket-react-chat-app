@@ -110,7 +110,7 @@ module.exports = function (client, clientManager, chatroomManager) {
   function handleIsTyping({chatroomName, isTyping}, callback) {
     ensureValidChatroomAndUserSelected(chatroomName)
       .then(({chatroom, user}) => {
-        console.log(`handling ${user.name} istyping ${isTyping} in ${chatroomName}`)
+        //console.log(`handling ${user.name} istyping ${isTyping} in ${chatroomName}`)
         //add user as typing or not typing
         if(isTyping)
           chatroom.addTypingUser(client)

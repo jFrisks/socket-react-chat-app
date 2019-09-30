@@ -1,6 +1,6 @@
 const server = require('http').createServer((req, res) => {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Connected to http server')
+  res.end('Congrats! You are running the socket-chat-app-react-server. Keep this window open, while opening new tabs with the client-app')
 })
 const io = require('socket.io')(server)
 
@@ -48,7 +48,7 @@ io.on('connection', function (client) {
 
   client.on('error', function (err) {
     console.log('received error from client:', client.id)
-    console.log(err)
+    console.error(err)
   })
 })
 

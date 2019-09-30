@@ -5,13 +5,13 @@
   "homepage": "http://jfrisks.github.io/socket-react-chat-app",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
-    "@material-ui/icons": "^4.2.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "@material-ui/icons": "^4.4.3",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
     "react-scripts": "3.0.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
-    "styled-components": "^4.2.0"
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "styled-components": "^4.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,9 +38,9 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.1.9",
-    "@storybook/addon-links": "^5.1.9",
-    "@storybook/addons": "^5.1.9",
+    "@storybook/addon-actions": "^5.2.1",
+    "@storybook/addon-links": "^5.2.1",
+    "@storybook/addons": "^5.2.1",
     "gh-pages": "^2.1.1"
   }
 }
