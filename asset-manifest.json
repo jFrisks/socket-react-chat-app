@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/socket-react-chat-app/static/css/main.9ef0b74e.chunk.css",
-    "main.js": "/socket-react-chat-app/static/js/main.b039865c.chunk.js",
-    "main.js.map": "/socket-react-chat-app/static/js/main.b039865c.chunk.js.map",
+    "main.js": "/socket-react-chat-app/static/js/main.b833c3db.chunk.js",
+    "main.js.map": "/socket-react-chat-app/static/js/main.b833c3db.chunk.js.map",
     "runtime~main.js": "/socket-react-chat-app/static/js/runtime~main.5c745f96.js",
     "runtime~main.js.map": "/socket-react-chat-app/static/js/runtime~main.5c745f96.js.map",
     "static/js/2.87270484.chunk.js": "/socket-react-chat-app/static/js/2.87270484.chunk.js",
     "static/js/2.87270484.chunk.js.map": "/socket-react-chat-app/static/js/2.87270484.chunk.js.map",
     "index.html": "/socket-react-chat-app/index.html",
-    "precache-manifest.2252ce9bc4689428985d2e0ce7861988.js": "/socket-react-chat-app/precache-manifest.2252ce9bc4689428985d2e0ce7861988.js",
+    "precache-manifest.9251c241a302a4bed6e878fdefe372c8.js": "/socket-react-chat-app/precache-manifest.9251c241a302a4bed6e878fdefe372c8.js",
     "service-worker.js": "/socket-react-chat-app/service-worker.js",
     "static/css/main.9ef0b74e.chunk.css.map": "/socket-react-chat-app/static/css/main.9ef0b74e.chunk.css.map",
     "static/media/stranger_things_logo.png": "/socket-react-chat-app/static/media/stranger_things_logo.74b7f8d7.png",
