@@ -1,4 +1,7 @@
-const server = require('http').createServer()
+const server = require('http').createServer((req, res) => {
+  res.writeHead(200);
+  res.end('Connected to http server')
+})
 const io = require('socket.io')(server)
 
 const ClientManager = require('./ClientManager')
